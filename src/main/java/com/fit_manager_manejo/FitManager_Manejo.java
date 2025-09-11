@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.fit.manager_manejo;
+package com.fit_manager_manejo;
 
 /**
  *
