@@ -6,9 +6,7 @@ package GUI;
 
 import Modelo.Inicio;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -136,6 +134,28 @@ public class Loggin extends javax.swing.JFrame {
         if (rol != null) {
             JOptionPane.showMessageDialog(this, "Bienvenido " + usuario + " (" + rol + ")");
             // aquí podrías abrir otra ventana según el rol
+
+            // Abrir ventana según rol
+            switch (rol) {
+                case "Administrador":
+                    new Administrador().setVisible(true);
+                    break;
+                case "Recepcionista":
+                    new Recepcionista().setVisible(true);
+                    break;
+                case "Entrenador":
+                    new Entrenador().setVisible(true);
+                    break;
+                case "Inventario":
+                    new Inventario().setVisible(true);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Rol no reconocido");
+                    return;
+            }
+
+            // Cerrar ventana de login
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
         }
