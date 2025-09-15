@@ -10,6 +10,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import GUI.Administrador2;
 
 /**
  *
@@ -72,34 +73,8 @@ public class Administrador extends javax.swing.JFrame {
         TbEmpleados = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         btnVisualizar = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        btnRInventario1 = new javax.swing.JButton();
-        btnRInventario2 = new javax.swing.JButton();
-        btnRInventario3 = new javax.swing.JButton();
-        btnRInventario4 = new javax.swing.JButton();
-        btnRInventario5 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        btnRClientes1 = new javax.swing.JButton();
-        btnRClientes2 = new javax.swing.JButton();
-        btnRClientes3 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        btnRSucursales1 = new javax.swing.JButton();
-        btnRSucursales2 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        btnREntrenador1 = new javax.swing.JButton();
-        btnREntrenador2 = new javax.swing.JButton();
-        btnREntrenador3 = new javax.swing.JButton();
-        btnREntrenador4 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        btnRMP1 = new javax.swing.JButton();
-        btnRMP2 = new javax.swing.JButton();
-        btnRMP3 = new javax.swing.JButton();
-        btnRMP4 = new javax.swing.JButton();
+        btnCerraSesion = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -260,13 +235,13 @@ public class Administrador extends javax.swing.JFrame {
 
         TbEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(TbEmpleados);
@@ -285,10 +260,6 @@ public class Administrador extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,7 +268,11 @@ public class Administrador extends javax.swing.JFrame {
                         .addGap(249, 249, 249))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(240, 240, 240))))
+                        .addGap(222, 222, 222))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,329 +281,31 @@ public class Administrador extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(btnVisualizar)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 650, 360));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 590, 490));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
-        jLabel15.setText("Reportes Inventario");
-
-        btnRInventario1.setBackground(new java.awt.Color(51, 255, 255));
-        btnRInventario1.setText("Mas Utilizados");
-        btnRInventario1.addActionListener(new java.awt.event.ActionListener() {
+        btnCerraSesion.setBackground(new java.awt.Color(255, 102, 102));
+        btnCerraSesion.setText("Cerrar Sesion");
+        btnCerraSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRInventario1ActionPerformed(evt);
+                btnCerraSesionActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCerraSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 310, -1));
 
-        btnRInventario2.setBackground(new java.awt.Color(51, 255, 255));
-        btnRInventario2.setText("Con Mayor coincidencia");
-        btnRInventario2.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.setBackground(new java.awt.Color(255, 102, 102));
+        btnReportes.setText("Reportes");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRInventario2ActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
-
-        btnRInventario3.setBackground(new java.awt.Color(51, 255, 255));
-        btnRInventario3.setText("Control de Equipos");
-        btnRInventario3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRInventario3ActionPerformed(evt);
-            }
-        });
-
-        btnRInventario4.setBackground(new java.awt.Color(51, 255, 255));
-        btnRInventario4.setText("Mantenimiento");
-
-        btnRInventario5.setBackground(new java.awt.Color(51, 255, 255));
-        btnRInventario5.setText("Top 5 Mas Utilizados");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnRInventario4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRInventario3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                            .addComponent(btnRInventario2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnRInventario1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRInventario5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRInventario1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRInventario2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRInventario3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRInventario4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(btnRInventario5)
-                .addContainerGap())
-        );
-
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 420, 190, 220));
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
-        btnRClientes1.setBackground(new java.awt.Color(51, 255, 255));
-        btnRClientes1.setText("Top 10 Frecuentes");
-        btnRClientes1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRClientes1ActionPerformed(evt);
-            }
-        });
-
-        btnRClientes2.setBackground(new java.awt.Color(51, 255, 255));
-        btnRClientes2.setText("Top 10  Mayor Gasto");
-        btnRClientes2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRClientes2ActionPerformed(evt);
-            }
-        });
-
-        btnRClientes3.setBackground(new java.awt.Color(51, 255, 255));
-        btnRClientes3.setText("Mas Asistencia ");
-        btnRClientes3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRClientes3ActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setText("Reportes Clientes");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnRClientes2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addComponent(btnRClientes1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRClientes3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRClientes1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnRClientes2)
-                .addGap(18, 18, 18)
-                .addComponent(btnRClientes3)
-                .addContainerGap(66, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 190, 220));
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
-        jLabel13.setText("Reportes Sucursales");
-
-        btnRSucursales1.setBackground(new java.awt.Color(51, 255, 255));
-        btnRSucursales1.setText("Con Mas Ingresos");
-        btnRSucursales1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRSucursales1ActionPerformed(evt);
-            }
-        });
-
-        btnRSucursales2.setBackground(new java.awt.Color(51, 255, 255));
-        btnRSucursales2.setText("No. Asistencia");
-        btnRSucursales2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRSucursales2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnRSucursales1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRSucursales2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel13)
-                .addGap(31, 31, 31)
-                .addComponent(btnRSucursales1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRSucursales2)
-                .addContainerGap(88, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 420, -1, 220));
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
-        jLabel12.setText("Reportes Entrenadores");
-
-        btnREntrenador1.setBackground(new java.awt.Color(51, 255, 255));
-        btnREntrenador1.setText("Top 5 mas clientes");
-        btnREntrenador1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnREntrenador1ActionPerformed(evt);
-            }
-        });
-
-        btnREntrenador2.setBackground(new java.awt.Color(51, 255, 255));
-        btnREntrenador2.setText("Top 5  Mayor Rutinas");
-        btnREntrenador2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnREntrenador2ActionPerformed(evt);
-            }
-        });
-
-        btnREntrenador3.setBackground(new java.awt.Color(51, 255, 255));
-        btnREntrenador3.setText("Ranking de Entrenadores");
-        btnREntrenador3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnREntrenador3ActionPerformed(evt);
-            }
-        });
-
-        btnREntrenador4.setBackground(new java.awt.Color(51, 255, 255));
-        btnREntrenador4.setText("Mayores Especialidades");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnREntrenador3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnREntrenador2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(btnREntrenador1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnREntrenador4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(19, 19, 19)))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnREntrenador1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnREntrenador2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnREntrenador3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnREntrenador4)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 190, 220));
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
-        jLabel14.setText("Reportes Membresia y Pago");
-
-        btnRMP1.setBackground(new java.awt.Color(51, 255, 255));
-        btnRMP1.setText("Mas vendidas");
-        btnRMP1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRMP1ActionPerformed(evt);
-            }
-        });
-
-        btnRMP2.setBackground(new java.awt.Color(51, 255, 255));
-        btnRMP2.setText("Ingresos Totales");
-        btnRMP2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRMP2ActionPerformed(evt);
-            }
-        });
-
-        btnRMP3.setBackground(new java.awt.Color(51, 255, 255));
-        btnRMP3.setText("Pago por Fecha");
-        btnRMP3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRMP3ActionPerformed(evt);
-            }
-        });
-
-        btnRMP4.setBackground(new java.awt.Color(51, 255, 255));
-        btnRMP4.setText("Distribucion de Clientes");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnRMP3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRMP2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(btnRMP1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRMP4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRMP1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRMP2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRMP3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRMP4)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, 190, 220));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 690));
+        getContentPane().add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, 310, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 1080, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -637,94 +314,82 @@ public class Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSucursalActionPerformed
 
-    private void btnRClientes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRClientes1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRClientes1ActionPerformed
-
-    private void btnRClientes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRClientes2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRClientes2ActionPerformed
-
-    private void btnRClientes3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRClientes3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRClientes3ActionPerformed
-
-    private void btnREntrenador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnREntrenador1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnREntrenador1ActionPerformed
-
-    private void btnREntrenador2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnREntrenador2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnREntrenador2ActionPerformed
-
-    private void btnREntrenador3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnREntrenador3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnREntrenador3ActionPerformed
-
-    private void btnRSucursales1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRSucursales1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRSucursales1ActionPerformed
-
-    private void btnRSucursales2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRSucursales2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRSucursales2ActionPerformed
-
-    private void btnRMP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRMP1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRMP1ActionPerformed
-
-    private void btnRMP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRMP2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRMP2ActionPerformed
-
-    private void btnRMP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRMP3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRMP3ActionPerformed
-
-    private void btnRInventario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRInventario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRInventario1ActionPerformed
-
-    private void btnRInventario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRInventario2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRInventario2ActionPerformed
-
-    private void btnRInventario3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRInventario3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRInventario3ActionPerformed
-
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        int idEmpleado = Integer.parseInt(txtEmpleado.getText());
+        String idText = txtEmpleado.getText().trim();
+
+        if (idText.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Por favor ingresa un ID de empleado.",
+                    "Campo vacío",
+                    JOptionPane.WARNING_MESSAGE);
+            txtEmpleado.requestFocus();
+            return; // salir sin intentar eliminar
+        }
+
+        int idEmpleado;
+        try {
+            idEmpleado = Integer.parseInt(idText); // convertir a número
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,
+                    "El ID debe ser un número válido.",
+                    "Error de formato",
+                    JOptionPane.WARNING_MESSAGE);
+            txtEmpleado.requestFocus();
+            return;
+        }
 
         Admin dao = new Admin();
         dao.eliminarEmpleado(idEmpleado);
 
-        txtEmpleado.setText(""); // limpiar campo
+        txtEmpleado.setText("");
         txtEmpleado.requestFocus();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        Admin r = new Admin();
 
-       Admin r = new Admin();
-        
-        if (!r.validarCampos()) {
-            return; // si falla la validación, salimos
+        if (!r.validarCampos(txtEmpleado, txtSucursal, txtNombre, txtApellido, txtUsuario, txtConrasenia)) {
+            return; // salir si falla validación
         }
 
         try {
-            int idEmpleado = Integer.parseInt(txtEmpleado.getText());
-            int idSucursal = Integer.parseInt(txtSucursal.getText());
-            int idRol = CbRol.getSelectedIndex() + 1;
-            String nombre = txtNombre.getText();
-            String apellido = txtApellido.getText();
-            String usuario = txtUsuario.getText();
-            String contrasenia = txtConrasenia.getText();
+            int idEmpleado = Integer.parseInt(txtEmpleado.getText().trim());
+            int idSucursal = Integer.parseInt(txtSucursal.getText().trim());
+
+            String rolSeleccionado = CbRol.getSelectedItem().toString();
+            int idRol;
+
+            switch (rolSeleccionado) {
+                case "Administrador":
+                    idRol = 1;
+                    break;
+                case "Recepcionista":
+                    idRol = 2;
+                    break;
+                case "Entrenador":
+                    idRol = 3;
+                    break;
+                case "Inventario":
+                    idRol = 4;
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this,
+                            "Selecciona un rol válido",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+            }
+
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            String usuario = txtUsuario.getText().trim();
+            String contrasenia = txtConrasenia.getText().trim();
 
             Admin edi = new Admin();
             edi.agregarEmpleado(idEmpleado, idSucursal, idRol, nombre, apellido, usuario, contrasenia);
-            
+
             r.limpiarCampos(txtEmpleado, txtSucursal, CbRol, txtNombre, txtApellido, txtUsuario, txtConrasenia);
 
         } catch (NumberFormatException e) {
@@ -738,23 +403,47 @@ public class Administrador extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         Admin r = new Admin();
-        
-        if (!r.validarCampos()) {
-            return; // si falla la validación, salimos
+
+        if (!r.validarCampos(txtEmpleado, txtSucursal, txtNombre, txtApellido, txtUsuario, txtConrasenia)) {
+            return; // salir si falla validación
         }
 
         try {
-            int idEmpleado = Integer.parseInt(txtEmpleado.getText());
-            int idSucursal = Integer.parseInt(txtSucursal.getText());
-            int idRol = CbRol.getSelectedIndex() + 1;
-            String nombre = txtNombre.getText();
-            String apellido = txtApellido.getText();
-            String usuario = txtUsuario.getText();
-            String contrasenia = txtConrasenia.getText();
+            int idEmpleado = Integer.parseInt(txtEmpleado.getText().trim());
+            int idSucursal = Integer.parseInt(txtSucursal.getText().trim());
+
+            String rolSeleccionado = CbRol.getSelectedItem().toString();
+            int idRol;
+
+            switch (rolSeleccionado) {
+                case "Administrador":
+                    idRol = 1;
+                    break;
+                case "Recepcionista":
+                    idRol = 2;
+                    break;
+                case "Entrenador":
+                    idRol = 3;
+                    break;
+                case "Inventario":
+                    idRol = 4;
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this,
+                            "Selecciona un rol válido",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+            }
+
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            String usuario = txtUsuario.getText().trim();
+            String contrasenia = txtConrasenia.getText().trim();
 
             Admin edi = new Admin();
             edi.editarEmpleado(idEmpleado, idSucursal, idRol, nombre, apellido, usuario, contrasenia);
-            
+
             r.limpiarCampos(txtEmpleado, txtSucursal, CbRol, txtNombre, txtApellido, txtUsuario, txtConrasenia);
 
         } catch (NumberFormatException e) {
@@ -763,7 +452,6 @@ public class Administrador extends javax.swing.JFrame {
                     "Error de formato",
                     JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
@@ -776,6 +464,20 @@ public class Administrador extends javax.swing.JFrame {
     private void CbRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbRolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CbRolActionPerformed
+
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        // TODO add your handling 
+        Administrador2 ventana2 = new Administrador2(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnReportesActionPerformed
+
+    private void btnCerraSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerraSesionActionPerformed
+        // TODO add your handling code here:
+        Loggin ventana2 = new Loggin(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCerraSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -816,34 +518,13 @@ public class Administrador extends javax.swing.JFrame {
     public static javax.swing.JComboBox<String> CbRol;
     private javax.swing.JTable TbEmpleados;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCerraSesion;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnRClientes1;
-    private javax.swing.JButton btnRClientes2;
-    private javax.swing.JButton btnRClientes3;
-    private javax.swing.JButton btnREntrenador1;
-    private javax.swing.JButton btnREntrenador2;
-    private javax.swing.JButton btnREntrenador3;
-    private javax.swing.JButton btnREntrenador4;
-    private javax.swing.JButton btnRInventario1;
-    private javax.swing.JButton btnRInventario2;
-    private javax.swing.JButton btnRInventario3;
-    private javax.swing.JButton btnRInventario4;
-    private javax.swing.JButton btnRInventario5;
-    private javax.swing.JButton btnRMP1;
-    private javax.swing.JButton btnRMP2;
-    private javax.swing.JButton btnRMP3;
-    private javax.swing.JButton btnRMP4;
-    private javax.swing.JButton btnRSucursales1;
-    private javax.swing.JButton btnRSucursales2;
+    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -854,11 +535,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTextField txtApellido;
     public static javax.swing.JTextField txtConrasenia;
