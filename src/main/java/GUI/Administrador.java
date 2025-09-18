@@ -75,6 +75,7 @@ public class Administrador extends javax.swing.JFrame {
         btnVisualizar = new javax.swing.JButton();
         btnCerraSesion = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
+        btnAgregarServicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -305,6 +306,15 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, 310, -1));
+
+        btnAgregarServicio.setBackground(new java.awt.Color(255, 51, 102));
+        btnAgregarServicio.setText("Agregar Servicios ");
+        btnAgregarServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarServicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 570, 310, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 1080, 690));
 
         pack();
@@ -479,6 +489,13 @@ public class Administrador extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCerraSesionActionPerformed
 
+    private void btnAgregarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarServicioActionPerformed
+        // TODO add your handling code here:
+        Adminitrador3 ventana2 = new Adminitrador3(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAgregarServicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -518,6 +535,7 @@ public class Administrador extends javax.swing.JFrame {
     public static javax.swing.JComboBox<String> CbRol;
     private javax.swing.JTable TbEmpleados;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregarServicio;
     private javax.swing.JButton btnCerraSesion;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
