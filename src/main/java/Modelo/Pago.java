@@ -1,0 +1,228 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Modelo;
+
+import Controlador.Conection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author SELVYN
+ */
+public class Pago {
+
+    private boolean validarCamposTexto(String... campos) {
+        for (String campo : campos) {
+            if (campo == null || campo.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "Todos los campos deben estar completos",
+                        "Advertencia",
+                        JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // ==================== Agregar Pago ====================
+    private int obtenerIdCliente(Connection conn, String nombreCliente) throws SQLException {
+        String sql = "SELECT id_cliente FROM Cliente WHERE nombre = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nombreCliente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_cliente");
+                }
+            }
+        }
+        throw new SQLException("Cliente no encontrado: " + nombreCliente);
+    }
+
+    private int obtenerIdTipoPago(Connection conn, String nombreTipo) throws SQLException {
+        String sql = "SELECT id_tipo_pago FROM TipoPago WHERE nombre = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nombreTipo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_tipo_pago");
+                }
+            }
+        }
+        throw new SQLException("Tipo de pago no encontrado: " + nombreTipo);
+    }
+
+    public void agregarPago(String cliente, String tipoPago,
+            Date fechaInicio, Date fechaFin,
+            double monto, String concepto) { // <-- sin horaFecha
+
+        String sql = "INSERT INTO Pago (id_cliente, id_tipo_pago, fecha_inicio, fecha_fin, monto, concepto) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = Conection.getConnection()) {
+            int idCliente = obtenerIdCliente(conn, cliente);
+            int idTipoPago = obtenerIdTipoPago(conn, tipoPago);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, idCliente);
+                stmt.setInt(2, idTipoPago);
+                stmt.setDate(3, new java.sql.Date(fechaInicio.getTime()));
+                stmt.setDate(4, new java.sql.Date(fechaFin.getTime()));
+                stmt.setDouble(5, monto);
+                stmt.setString(6, concepto);
+
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Pago registrado con éxito");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar pago: " + e.getMessage());
+        }
+    }
+
+    // ==================== Editar Pago ====================
+    public void editarPago(int idPago, String cliente, String tipoPago,
+            Date fechaInicio, Date fechaFin,
+            double monto, String concepto) { // <-- sin horaFecha
+
+        String sql = "UPDATE Pago SET id_cliente=?, id_tipo_pago=?, fecha_inicio=?, fecha_fin=?, "
+                + "monto=?, concepto=? WHERE id_pago=?";
+
+        try (Connection conn = Conection.getConnection()) {
+            int idCliente = obtenerIdCliente(conn, cliente);
+            int idTipoPago = obtenerIdTipoPago(conn, tipoPago);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, idCliente);
+                stmt.setInt(2, idTipoPago);
+                stmt.setDate(3, new java.sql.Date(fechaInicio.getTime()));
+                stmt.setDate(4, new java.sql.Date(fechaFin.getTime()));
+                stmt.setDouble(5, monto);
+                stmt.setString(6, concepto);
+                stmt.setInt(7, idPago);
+
+                int filas = stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null,
+                        filas > 0 ? "Pago actualizado" : "No se pudo actualizar");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al editar pago: " + e.getMessage());
+        }
+    }
+
+    // ==================== Eliminar Pago ====================
+    public void eliminarPago(int idPago) {
+        String sql = "DELETE FROM Pago WHERE id_pago=?";
+        try (Connection conn = Conection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idPago);
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Pago eliminado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar pago: " + e.getMessage());
+        }
+    }
+
+    public void listarPagos(JTable tabla) {
+        String[] columnas = {"ID Pago", "Cliente", "Tipo de Pago", "Fecha Inicio", "Fecha Fin", "Monto", "Concepto", "Hora y Fecha"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+
+        String sql = "SELECT p.id_pago, c.nombre AS cliente, t.nombre AS tipo_pago, "
+                + "p.fecha_inicio, p.fecha_fin, p.monto, p.concepto, p.created_at "
+                + "FROM Pago p "
+                + "JOIN Cliente c ON p.id_cliente = c.id_cliente "
+                + "JOIN TipoPago t ON p.id_tipo_pago = t.id_tipo_pago "
+                + "ORDER BY p.id_pago ASC";
+
+        try (Connection conn = Conection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_pago"),
+                    rs.getString("cliente"),
+                    rs.getString("tipo_pago"),
+                    rs.getDate("fecha_inicio"),
+                    rs.getDate("fecha_fin"),
+                    rs.getDouble("monto"),
+                    rs.getString("concepto"),
+                    rs.getTimestamp("created_at")
+                };
+                modelo.addRow(fila);
+            }
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al listar pagos: " + e.getMessage());
+        }
+    }
+
+    public void buscarHistorialPorCliente(String nombreCliente, JTable tabla) {
+        String[] columnas = {"ID Pago", "Cliente", "Tipo de Pago", "Fecha Inicio", "Fecha Fin", "Monto", "Concepto", "Hora y Fecha"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+
+        try (Connection conn = Conection.getConnection()) {
+
+            // Verificar si el cliente existe antes de hacer la consulta
+            int idCliente;
+            try {
+                idCliente = obtenerIdCliente(conn, nombreCliente);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "El cliente '" + nombreCliente + "' no está registrado.",
+                        "Cliente no encontrado",
+                        JOptionPane.WARNING_MESSAGE);
+                return; // salimos, no hacemos la consulta
+            }
+
+            String sql = "SELECT p.id_pago, c.nombre AS cliente, t.nombre AS tipo_pago, "
+                    + "p.fecha_inicio, p.fecha_fin, p.monto, p.concepto, p.created_at "
+                    + "FROM Pago p "
+                    + "JOIN Cliente c ON p.id_cliente = c.id_cliente "
+                    + "JOIN TipoPago t ON p.id_tipo_pago = t.id_tipo_pago "
+                    + "WHERE c.id_cliente = ? "
+                    + "ORDER BY p.id_pago ASC";
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, idCliente);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    boolean tieneHistorial = false;
+                    while (rs.next()) {
+                        Object[] fila = {
+                            rs.getInt("id_pago"),
+                            rs.getString("cliente"),
+                            rs.getString("tipo_pago"),
+                            rs.getDate("fecha_inicio"),
+                            rs.getDate("fecha_fin"),
+                            rs.getDouble("monto"),
+                            rs.getString("concepto"),
+                            rs.getTimestamp("created_at")
+                        };
+                        modelo.addRow(fila);
+                        tieneHistorial = true;
+                    }
+
+                    if (!tieneHistorial) {
+                        JOptionPane.showMessageDialog(null,
+                                "El cliente '" + nombreCliente + "' no tiene historial de pagos.",
+                                "Historial vacío",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar historial: " + e.getMessage());
+        }
+    }
+
+}

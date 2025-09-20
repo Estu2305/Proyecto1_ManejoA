@@ -4,10 +4,14 @@
  */
 package GUI;
 
+import Modelo.Asis;
+import Modelo.Membre;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,6 +41,8 @@ public class Recepcionista2 extends javax.swing.JFrame {
         }
     }
 
+    Membre daos = new Membre();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,20 +57,21 @@ public class Recepcionista2 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         txtIDC = new javax.swing.JTextField();
-        txtFI = new javax.swing.JTextField();
-        txtFF = new javax.swing.JTextField();
         CbM = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        SFI = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnVer = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaClientes = new javax.swing.JTable();
         btnRegresa = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,21 +87,38 @@ public class Recepcionista2 extends javax.swing.JFrame {
 
         jLabel5.setText("Fecha Inicio");
 
-        jLabel6.setText("Fecha Final");
-
-        txtFF.addActionListener(new java.awt.event.ActionListener() {
+        CbM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Basica", "Premium", "VIP" }));
+        CbM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFFActionPerformed(evt);
+                CbMActionPerformed(evt);
             }
         });
 
-        CbM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Basica", "Premium", "Vip" }));
-
+        btnAgregar.setBackground(new java.awt.Color(0, 204, 153));
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
+        btnEditar.setBackground(new java.awt.Color(0, 204, 153));
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
+        btnEliminar.setBackground(new java.awt.Color(0, 204, 153));
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        SFI.setModel(new javax.swing.SpinnerDateModel());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,15 +134,13 @@ public class Recepcionista2 extends javax.swing.JFrame {
                             .addGap(15, 15, 15)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtIDC)
-                                .addComponent(txtFI)
-                                .addComponent(txtFF)
-                                .addComponent(CbM, 0, 152, Short.MAX_VALUE)))
+                                .addComponent(CbM, 0, 152, Short.MAX_VALUE)
+                                .addComponent(SFI)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,15 +167,11 @@ public class Recepcionista2 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(txtFI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(SFI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(txtFF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnEditar))
+                    .addComponent(btnEditar)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminar)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -161,6 +179,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 310, 330));
 
+        jButton1.setBackground(new java.awt.Color(255, 153, 102));
         jButton1.setText("Regresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,47 +205,83 @@ public class Recepcionista2 extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnVer.setBackground(new java.awt.Color(0, 204, 153));
         btnVer.setText("Visualizar");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(243, 243, 243))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(273, 273, 273)
+                        .addComponent(btnVer, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnVer, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(262, 262, 262))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnVer)
-                .addGap(14, 14, 14))
+                .addGap(165, 165, 165))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 660, 470));
-        getContentPane().add(btnRegresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, 1124, 620));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 660, 310));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tablaClientes);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 610, 160));
+        getContentPane().add(btnRegresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtFFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFFActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -234,6 +289,129 @@ public class Recepcionista2 extends javax.swing.JFrame {
         ventana2.setVisible(true);                       // mostrar nueva ventana
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        // TODO add your handling code here:
+        Asis dao = new Asis();
+        dao.listarClientes(tablaClientes);
+        daos.listarMembresias(jTable1);
+
+    }//GEN-LAST:event_btnVerActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        String idClienteText = txtIDC.getText().trim();
+        Date fechaInicio = (Date) SFI.getValue();
+
+        if (idClienteText.isEmpty() || CbM.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int idCliente = Integer.parseInt(idClienteText);
+            String tipoMembresia = CbM.getSelectedItem().toString().trim();
+            int idMembresia = 0;
+
+            switch (tipoMembresia) {
+                case "Basica":
+                    idMembresia = 1;
+                    break;
+                case "Premium":
+                    idMembresia = 2;
+                    break;
+                case "Vip":
+                    idMembresia = 3;
+                    break;
+            }
+
+            daos.agregarMembresia(idCliente, idMembresia, fechaInicio);
+
+            // Limpiar campos
+            txtIDC.setText("");
+            CbM.setSelectedIndex(0);
+            SFI.setValue(new Date());
+            txtIDC.requestFocus();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del cliente debe ser un número válido", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+
+        String idClienteText = txtIDC.getText().trim();
+        Date fechaInicio = (Date) SFI.getValue();
+
+        if (idClienteText.isEmpty() || CbM.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int idCliente = Integer.parseInt(idClienteText);
+            String tipoMembresia = CbM.getSelectedItem().toString().trim();
+            int idMembresia = 0;
+
+            switch (tipoMembresia) {
+                case "Basica":
+                    idMembresia = 1;
+                    break;
+                case "Premium":
+                    idMembresia = 2;
+                    break;
+                case "Vip":
+                    idMembresia = 3;
+                    break;
+            }
+
+            // Solo enviamos la fecha de inicio, fecha final se calcula automáticamente
+            daos.editarMembresia(idCliente, idMembresia, fechaInicio);
+
+            // Limpiar campos
+            txtIDC.setText("");
+            CbM.setSelectedIndex(0);
+            SFI.setValue(new Date());
+            txtIDC.requestFocus();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID del cliente debe ser un número válido", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        String idClienteText = txtIDC.getText().trim();
+
+        if (idClienteText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el ID del cliente", "Campo vacío", JOptionPane.WARNING_MESSAGE);
+            txtIDC.requestFocus();
+            return;
+        }
+
+        try {
+            int idCliente = Integer.parseInt(idClienteText);
+            daos.eliminarMembresia(idCliente);
+
+            // Limpiar campos
+            txtIDC.setText("");
+            CbM.setSelectedIndex(0); // limpiar combo
+            SFI.setValue(new Date());
+            txtIDC.requestFocus();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID debe ser un número válido", "Error de formato", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void CbMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CbMActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,6 +450,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbM;
+    private javax.swing.JSpinner SFI;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -283,13 +462,13 @@ public class Recepcionista2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtFF;
-    private javax.swing.JTextField txtFI;
+    private javax.swing.JTable tablaClientes;
     private javax.swing.JTextField txtIDC;
     // End of variables declaration//GEN-END:variables
 }

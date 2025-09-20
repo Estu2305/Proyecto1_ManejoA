@@ -159,4 +159,28 @@ public class Ser {
         txtIdServicio.requestFocus();
     }
 
+    // ==================== Listar ====================
+    public void ServiciosPagos(JTable tabla) {
+        String[] columnas = {"ID", "Nombre", "Precio"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+
+        String sql = "SELECT id_servicio, nombre, costo FROM Servicio ORDER BY id_servicio ASC";
+
+        try (Connection conn = Conection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_servicio"),
+                    rs.getString("nombre"),
+                    rs.getDouble("costo")
+                };
+                modelo.addRow(fila);
+            }
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al listar servicios: " + e.getMessage());
+        }
+    }
+
 }

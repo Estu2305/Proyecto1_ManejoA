@@ -72,6 +72,8 @@ public class Recepcionista extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnMembresia = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
+        btnAsistencia = new javax.swing.JButton();
+        btnServicios = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,6 +101,7 @@ public class Recepcionista extends javax.swing.JFrame {
             }
         });
 
+        btnAgregarC1.setBackground(new java.awt.Color(153, 255, 0));
         btnAgregarC1.setText("Agregar");
         btnAgregarC1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +109,7 @@ public class Recepcionista extends javax.swing.JFrame {
             }
         });
 
+        btnEditarC1.setBackground(new java.awt.Color(153, 255, 0));
         btnEditarC1.setText("Editar");
         btnEditarC1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +117,7 @@ public class Recepcionista extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarC1.setBackground(new java.awt.Color(153, 255, 0));
         btnEliminarC1.setText("Eliminar");
         btnEliminarC1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +199,7 @@ public class Recepcionista extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 280, 390));
 
+        btnPago.setBackground(new java.awt.Color(0, 204, 255));
         btnPago.setText("Pago");
         btnPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +208,7 @@ public class Recepcionista extends javax.swing.JFrame {
         });
         getContentPane().add(btnPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 210, -1));
 
+        btnCerrar.setBackground(new java.awt.Color(0, 204, 255));
         btnCerrar.setText("Cerrar Sesion");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,6 +232,7 @@ public class Recepcionista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnVerClientes.setBackground(new java.awt.Color(153, 255, 0));
         btnVerClientes.setText("Ver");
         btnVerClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,16 +272,35 @@ public class Recepcionista extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 760, 390));
 
+        btnMembresia.setBackground(new java.awt.Color(0, 204, 255));
         btnMembresia.setText("Membresia");
         btnMembresia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMembresiaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMembresia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 210, -1));
+        getContentPane().add(btnMembresia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 210, -1));
 
         jLabel16.setText("jLabel16");
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 90, -1));
+
+        btnAsistencia.setBackground(new java.awt.Color(0, 204, 255));
+        btnAsistencia.setText("Asistencia");
+        btnAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsistenciaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAsistencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 210, -1));
+
+        btnServicios.setBackground(new java.awt.Color(0, 204, 255));
+        btnServicios.setText("Servicios");
+        btnServicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnServiciosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, 190, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 630));
 
         pack();
@@ -421,6 +448,20 @@ public class Recepcionista extends javax.swing.JFrame {
         c.listarClientes(jTable1);
     }//GEN-LAST:event_btnVerClientesActionPerformed
 
+    private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed
+        // TODO add your handling code here:
+        Recepcionista5 ventana2 = new Recepcionista5(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnServiciosActionPerformed
+
+    private void btnAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsistenciaActionPerformed
+        // TODO add your handling code here:
+        Recepcionista4 ventana2 = new Recepcionista4(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAsistenciaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,15 +498,14 @@ public class Recepcionista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarC;
     private javax.swing.JButton btnAgregarC1;
+    private javax.swing.JButton btnAsistencia;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnEditarC;
     private javax.swing.JButton btnEditarC1;
-    private javax.swing.JButton btnEliminarC;
     private javax.swing.JButton btnEliminarC1;
     private javax.swing.JButton btnMembresia;
     private javax.swing.JButton btnPago;
+    private javax.swing.JButton btnServicios;
     private javax.swing.JButton btnVerClientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -476,27 +516,14 @@ public class Recepcionista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtApellido1;
-    private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtCorreo1;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtIDCliente;
     private javax.swing.JTextField txtIDCliente1;
-    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombre1;
-    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTelefono1;
     // End of variables declaration//GEN-END:variables
 }
