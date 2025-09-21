@@ -5,11 +5,12 @@
 package GUI;
 
 import Modelo.Asis;
+import Modelo.Membre;
 import Modelo.Pago;
 import Modelo.Ser;
+import Modelo.Servis;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import java.sql.Timestamp;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -75,20 +76,26 @@ public class Recepcionista3 extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         SFI = new javax.swing.JSpinner();
         SFF = new javax.swing.JSpinner();
+        jLabel11 = new javax.swing.JLabel();
+        CbE = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TablaPagos = new javax.swing.JTable();
-        btnVisualizar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaMembresia = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        TablaCliente = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
+        TablaServ = new javax.swing.JTable();
+        btnVer = new javax.swing.JButton();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        PreciosServicios = new javax.swing.JTable();
+        TablaPM = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TablaClientes = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        TablaPS = new javax.swing.JTable();
+        btnPagosTabla = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
@@ -115,6 +122,11 @@ public class Recepcionista3 extends javax.swing.JFrame {
         jLabel10.setText("Concepto");
 
         CbPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta", "Transferencia" }));
+        CbPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbPagoActionPerformed(evt);
+            }
+        });
 
         CbConcepto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Membresia", "Servicio" }));
 
@@ -156,6 +168,10 @@ public class Recepcionista3 extends javax.swing.JFrame {
         SFF.setModel(new javax.swing.SpinnerDateModel());
         SFF.setEditor(new javax.swing.JSpinner.DateEditor(SFF, "dd/MM/yyyy"));
 
+        jLabel11.setText("Estado");
+
+        CbE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Pagado", "Vencido", "Cancelado" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -168,6 +184,16 @@ public class Recepcionista3 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnHistorial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(btnPagar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -183,16 +209,8 @@ public class Recepcionista3 extends javax.swing.JFrame {
                             .addComponent(txtmonto)
                             .addComponent(CbConcepto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(SFI)
-                            .addComponent(SFF)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnHistorial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(btnPagar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))))
+                            .addComponent(SFF)
+                            .addComponent(CbE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -228,7 +246,11 @@ public class Recepcionista3 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(CbConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(CbE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPagar)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,55 +272,6 @@ public class Recepcionista3 extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 270, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
-        TablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(TablaPagos);
-
-        btnVisualizar.setBackground(new java.awt.Color(51, 255, 255));
-        btnVisualizar.setText("Ver");
-        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVisualizarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(318, 318, 318)
-                        .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(btnVisualizar)
-                .addGap(18, 18, 18))
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 720, 280));
-
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(51, 51, 51)));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -318,24 +291,24 @@ public class Recepcionista3 extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 340, 250));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 710, 170));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
 
-        TablaCliente.setModel(new javax.swing.table.DefaultTableModel(
+        TablaMembresia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -346,30 +319,11 @@ public class Recepcionista3 extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane3.setViewportView(TablaCliente);
+        jScrollPane1.setViewportView(TablaMembresia);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
+        jTabbedPane1.addTab("Membresia", jScrollPane1);
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 330, 360, 120));
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-
-        PreciosServicios.setModel(new javax.swing.table.DefaultTableModel(
+        TablaServ.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -380,26 +334,74 @@ public class Recepcionista3 extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane4.setViewportView(PreciosServicios);
+        jScrollPane3.setViewportView(TablaServ);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
+        jTabbedPane1.addTab("Servicio", jScrollPane3);
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 460, 360, 130));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 710, 220));
+
+        btnVer.setText("Visualizar");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 270, -1));
+
+        TablaPM.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(TablaPM);
+
+        jTabbedPane2.addTab("Precios Membresia", jScrollPane4);
+
+        TablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(TablaClientes);
+
+        jTabbedPane2.addTab("Clientes", jScrollPane5);
+
+        TablaPS.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane6.setViewportView(TablaPS);
+
+        jTabbedPane2.addTab("Precios de Servicios", jScrollPane6);
+
+        getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 430, 110));
+
+        btnPagosTabla.setText("Tabla Pagos");
+        btnPagosTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagosTablaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPagosTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 270, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1170, 630));
 
         pack();
@@ -412,20 +414,12 @@ public class Recepcionista3 extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-        // TODO add your handling code here:
-        pagosDAO.listarPagos(TablaPagos);
-        Asis dao = new Asis();
-        dao.listarClientes(TablaCliente);
-        Ser j = new Ser();
-        j.ServiciosPagos(PreciosServicios);
-    }//GEN-LAST:event_btnVisualizarActionPerformed
-
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
         String cliente = txtCliente.getText().trim();
         String tipoPago = CbPago.getSelectedItem().toString();
         String concepto = CbConcepto.getSelectedItem().toString();
+        String estado = CbE.getSelectedItem().toString(); // <-- nuevo
         String montoText = txtmonto.getText().trim();
 
         Date fechaInicio = (Date) SFI.getValue();
@@ -439,13 +433,28 @@ public class Recepcionista3 extends javax.swing.JFrame {
         try {
             double monto = Double.parseDouble(montoText);
 
-            // Llamada al DAO
-            pagosDAO.agregarPago(cliente, tipoPago, fechaInicio, fechaFin, monto, concepto);
+            // ===== Aplicar descuento SOLO si es Membresía =====
+            if (concepto.equalsIgnoreCase("Membresia")) {
+                if (monto == 300) { // Básica
+                    monto = 300;
+                } else if (monto == 500) { // Premium
+                    monto = 500 - (500 * 0.10);
+                } else if (monto == 1000) { // VIP
+                    monto = 1000 - (1000 * 0.20);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Monto no corresponde a ninguna membresía válida", "Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+
+            // Llamada al DAO incluyendo estado
+            pagosDAO.agregarPago(cliente, tipoPago, fechaInicio, fechaFin, monto, concepto, estado);
 
             // Limpiar campos
             txtCliente.setText("");
             CbPago.setSelectedIndex(0);
             CbConcepto.setSelectedIndex(0);
+            CbE.setSelectedIndex(0); // <-- limpiar estado
             txtmonto.setText("");
             SFI.setValue(new Date());
             SFF.setValue(new Date());
@@ -458,11 +467,11 @@ public class Recepcionista3 extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-
         String idPagoText = txtIDP.getText().trim();
         String cliente = txtCliente.getText().trim();
         String tipoPago = CbPago.getSelectedItem().toString();
         String concepto = CbConcepto.getSelectedItem().toString();
+        String estado = CbE.getSelectedItem().toString(); // <-- nuevo
         String montoText = txtmonto.getText().trim();
 
         Date fechaInicio = (Date) SFI.getValue();
@@ -477,13 +486,28 @@ public class Recepcionista3 extends javax.swing.JFrame {
             int idPago = Integer.parseInt(idPagoText);
             double monto = Double.parseDouble(montoText);
 
-            pagosDAO.editarPago(idPago, cliente, tipoPago, fechaInicio, fechaFin, monto, concepto);
+            if (concepto.equalsIgnoreCase("Membresia")) {
+                if (monto == 300) {
+                    monto = 300;
+                } else if (monto == 500) {
+                    monto = 500 - (500 * 0.10);
+                } else if (monto == 1000) {
+                    monto = 1000 - (1000 * 0.20);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Monto no corresponde a ninguna membresía válida", "Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+
+            // Llamada al DAO incluyendo estado
+            pagosDAO.editarPago(idPago, cliente, tipoPago, fechaInicio, fechaFin, monto, concepto, estado);
 
             // Limpiar campos
             txtIDP.setText("");
             txtCliente.setText("");
             CbPago.setSelectedIndex(0);
             CbConcepto.setSelectedIndex(0);
+            CbE.setSelectedIndex(0); // <-- limpiar estado
             txtmonto.setText("");
             SFI.setValue(new Date());
             SFF.setValue(new Date());
@@ -492,6 +516,7 @@ public class Recepcionista3 extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El ID y el monto deben ser numéricos válidos", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -514,6 +539,7 @@ public class Recepcionista3 extends javax.swing.JFrame {
             txtCliente.setText("");
             CbPago.setSelectedIndex(0);
             CbConcepto.setSelectedIndex(0);
+            CbE.setSelectedIndex(0);
             txtmonto.setText("");
             SFI.setValue(new Date());
             SFF.setValue(new Date());
@@ -536,6 +562,33 @@ public class Recepcionista3 extends javax.swing.JFrame {
         pagoDAO.buscarHistorialPorCliente(nombreCliente, jTable2);
 
     }//GEN-LAST:event_btnHistorialActionPerformed
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        // TODO add your handling code here:
+
+        Membre daos = new Membre();
+        daos.listarMembresias(TablaMembresia);
+        Ser ser = new Ser();
+        ser.listarServicios(TablaPS);
+        Pago pg = new Pago();
+        pg.listarMem(TablaPM);
+        Asis dao = new Asis();
+        dao.listarClientes(TablaClientes);
+        Servis daeo = new Servis();
+        daeo.listarClienteServicios(TablaServ);
+    }//GEN-LAST:event_btnVerActionPerformed
+
+    private void CbPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CbPagoActionPerformed
+
+    private void btnPagosTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagosTablaActionPerformed
+        // TODO add your handling code here:
+
+        Recepcionista6 ventana2 = new Recepcionista6(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPagosTablaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -574,20 +627,25 @@ public class Recepcionista3 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbConcepto;
+    private javax.swing.JComboBox<String> CbE;
     private javax.swing.JComboBox<String> CbPago;
-    private javax.swing.JTable PreciosServicios;
     private javax.swing.JSpinner SFF;
     private javax.swing.JSpinner SFI;
-    private javax.swing.JTable TablaCliente;
-    private javax.swing.JTable TablaPagos;
+    private javax.swing.JTable TablaClientes;
+    private javax.swing.JTable TablaMembresia;
+    private javax.swing.JTable TablaPM;
+    private javax.swing.JTable TablaPS;
+    private javax.swing.JTable TablaServ;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnPagosTabla;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btnVisualizar;
+    private javax.swing.JButton btnVer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -597,14 +655,15 @@ public class Recepcionista3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtIDP;

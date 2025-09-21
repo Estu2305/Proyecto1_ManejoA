@@ -5,7 +5,6 @@
 package Modelo;
 
 import Controlador.Conection;
-import static GUI.Administrador.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

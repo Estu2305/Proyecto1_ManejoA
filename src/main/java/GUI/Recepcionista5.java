@@ -67,7 +67,7 @@ public class Recepcionista5 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableServicios = new javax.swing.JTable();
+        TableServ = new javax.swing.JTable();
         btnVer = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -76,6 +76,7 @@ public class Recepcionista5 extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaServicios = new javax.swing.JTable();
+        btnPago = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -179,7 +180,7 @@ public class Recepcionista5 extends javax.swing.JFrame {
 
         jLabel3.setText("Servicios Agregados");
 
-        TableServicios.setModel(new javax.swing.table.DefaultTableModel(
+        TableServ.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -190,7 +191,7 @@ public class Recepcionista5 extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(TableServicios);
+        jScrollPane1.setViewportView(TableServ);
 
         btnVer.setText("Ver");
         btnVer.addActionListener(new java.awt.event.ActionListener() {
@@ -305,6 +306,15 @@ public class Recepcionista5 extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 370, 380, 150));
+
+        btnPago.setBackground(new java.awt.Color(0, 204, 255));
+        btnPago.setText("Pago");
+        btnPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 260, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 620));
 
         pack();
@@ -394,7 +404,7 @@ public class Recepcionista5 extends javax.swing.JFrame {
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
         // TODO add your handling code here:
-        dao.listarClienteServicios(TableServicios);
+        dao.listarClienteServicios(TableServ);
         Asis dao = new Asis();
         dao.listarClientes(TablaClientes);
         Ser ser = new Ser();
@@ -407,6 +417,13 @@ public class Recepcionista5 extends javax.swing.JFrame {
         ventana2.setVisible(true);                       // mostrar nueva ventana
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
+        // TODO add your handling code here:
+        Recepcionista3 ventana2 = new Recepcionista3(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -447,10 +464,11 @@ public class Recepcionista5 extends javax.swing.JFrame {
     private javax.swing.JSpinner SFecha;
     private javax.swing.JTable TablaClientes;
     private javax.swing.JTable TablaServicios;
-    private javax.swing.JTable TableServicios;
+    private javax.swing.JTable TableServ;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnPago;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnVer;
     private javax.swing.JLabel jLabel1;

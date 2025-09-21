@@ -47,7 +47,7 @@ public class Membre {
         return true;
     }
 
-    public void agregarMembresia(int idCliente, int idMembresia, Date fechaInicio) {
+    public void agregarMembresia(int idCliente, int idMembresia, Date fechaInicio, String estado) {
         if (!clienteExiste(idCliente)) {
             JOptionPane.showMessageDialog(null, "El cliente con ID " + idCliente + " no existe.", "Cliente no encontrado", JOptionPane.WARNING_MESSAGE);
             return;
@@ -75,12 +75,13 @@ public class Membre {
             Date fechaFin = cal.getTime();
 
             // Insertar membresía
-            String sqlInsert = "INSERT INTO Cliente_Membresia (id_cliente, id_membresia, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO Cliente_Membresia (id_cliente, id_membresia, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement stmtInsert = conn.prepareStatement(sqlInsert)) {
                 stmtInsert.setInt(1, idCliente);
                 stmtInsert.setInt(2, idMembresia);
                 stmtInsert.setDate(3, new java.sql.Date(fechaInicio.getTime()));
                 stmtInsert.setDate(4, new java.sql.Date(fechaFin.getTime()));
+                stmtInsert.setString(5, estado);
                 stmtInsert.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Membresía registrada con éxito");
             }
@@ -90,7 +91,7 @@ public class Membre {
         }
     }
 
-    public void editarMembresia(int idCliente, int idMembresia, Date fechaInicio) {
+    public void editarMembresia(int idCliente, int idMembresia, Date fechaInicio, String estado) {
         if (!clienteExiste(idCliente)) {
             JOptionPane.showMessageDialog(null, "El cliente con ID " + idCliente + " no existe.", "Cliente no encontrado", JOptionPane.WARNING_MESSAGE);
             return;
@@ -118,12 +119,13 @@ public class Membre {
             Date fechaFin = cal.getTime();
 
             // Actualizar membresía
-            String sqlUpdate = "UPDATE Cliente_Membresia SET id_membresia = ?, fecha_inicio = ?, fecha_fin = ? WHERE id_cliente = ?";
+            String sqlUpdate = "UPDATE Cliente_Membresia SET id_membresia = ?, fecha_inicio = ?, fecha_fin = ?, estado  = ? WHERE id_cliente = ?";
             try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
                 stmtUpdate.setInt(1, idMembresia);
                 stmtUpdate.setDate(2, new java.sql.Date(fechaInicio.getTime()));
                 stmtUpdate.setDate(3, new java.sql.Date(fechaFin.getTime()));
-                stmtUpdate.setInt(4, idCliente);
+                stmtUpdate.setString(4, estado);
+                stmtUpdate.setInt(5, idCliente);
 
                 int filas = stmtUpdate.executeUpdate();
                 if (filas > 0) {
@@ -164,14 +166,14 @@ public class Membre {
     }
 
     public void listarMembresias(JTable tabla) {
-        String[] columnas = {"ID Cliente", "Membresía", "Fecha Inicio", "Fecha Fin"};
+        String[] columnas = {"ID Cliente", "Membresía", "Fecha Inicio", "Fecha Fin", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
 
-        String sql = "SELECT cm.id_cliente, m.tipo, cm.fecha_inicio, cm.fecha_fin "
+        String sql = "SELECT cm.id_cliente, m.tipo, cm.fecha_inicio, cm.fecha_fin, cm.estado "
                 + "FROM Cliente_Membresia cm "
                 + "JOIN Membresia m ON cm.id_membresia = m.id_membresia "
                 + "ORDER BY cm.id_cliente ASC";
-
+        
         try (Connection conn = Conection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
@@ -179,7 +181,8 @@ public class Membre {
                     rs.getInt("id_cliente"),
                     rs.getString("tipo"),
                     rs.getDate("fecha_inicio"),
-                    rs.getDate("fecha_fin")
+                    rs.getDate("fecha_fin"),
+                    rs.getString("estado")
                 };
                 modelo.addRow(fila);
             }

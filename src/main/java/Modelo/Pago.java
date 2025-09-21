@@ -63,10 +63,10 @@ public class Pago {
 
     public void agregarPago(String cliente, String tipoPago,
             Date fechaInicio, Date fechaFin,
-            double monto, String concepto) { // <-- sin horaFecha
+            double monto, String concepto, String estado) {
 
-        String sql = "INSERT INTO Pago (id_cliente, id_tipo_pago, fecha_inicio, fecha_fin, monto, concepto) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Pago (id_cliente, id_tipo_pago, fecha_inicio, fecha_fin, monto, concepto, estado) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conection.getConnection()) {
             int idCliente = obtenerIdCliente(conn, cliente);
@@ -79,6 +79,7 @@ public class Pago {
                 stmt.setDate(4, new java.sql.Date(fechaFin.getTime()));
                 stmt.setDouble(5, monto);
                 stmt.setString(6, concepto);
+                stmt.setString(7, estado);
 
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Pago registrado con éxito");
@@ -91,10 +92,10 @@ public class Pago {
     // ==================== Editar Pago ====================
     public void editarPago(int idPago, String cliente, String tipoPago,
             Date fechaInicio, Date fechaFin,
-            double monto, String concepto) { // <-- sin horaFecha
+            double monto, String concepto, String estado) {
 
         String sql = "UPDATE Pago SET id_cliente=?, id_tipo_pago=?, fecha_inicio=?, fecha_fin=?, "
-                + "monto=?, concepto=? WHERE id_pago=?";
+                + "monto=?, concepto=?, estado=? WHERE id_pago=?";
 
         try (Connection conn = Conection.getConnection()) {
             int idCliente = obtenerIdCliente(conn, cliente);
@@ -107,7 +108,8 @@ public class Pago {
                 stmt.setDate(4, new java.sql.Date(fechaFin.getTime()));
                 stmt.setDouble(5, monto);
                 stmt.setString(6, concepto);
-                stmt.setInt(7, idPago);
+                stmt.setString(7, estado);
+                stmt.setInt(8, idPago);
 
                 int filas = stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null,
@@ -131,11 +133,11 @@ public class Pago {
     }
 
     public void listarPagos(JTable tabla) {
-        String[] columnas = {"ID Pago", "Cliente", "Tipo de Pago", "Fecha Inicio", "Fecha Fin", "Monto", "Concepto", "Hora y Fecha"};
+        String[] columnas = {"ID Pago", "Cliente", "Tipo de Pago", "Fecha Inicio", "Fecha Fin", "Monto", "Concepto", "Estado", "Hora y Fecha"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
 
         String sql = "SELECT p.id_pago, c.nombre AS cliente, t.nombre AS tipo_pago, "
-                + "p.fecha_inicio, p.fecha_fin, p.monto, p.concepto, p.created_at "
+                + "p.fecha_inicio, p.fecha_fin, p.monto, p.concepto, p.estado, p.created_at "
                 + "FROM Pago p "
                 + "JOIN Cliente c ON p.id_cliente = c.id_cliente "
                 + "JOIN TipoPago t ON p.id_tipo_pago = t.id_tipo_pago "
@@ -152,6 +154,7 @@ public class Pago {
                     rs.getDate("fecha_fin"),
                     rs.getDouble("monto"),
                     rs.getString("concepto"),
+                    rs.getString("estado"), // <- agregada la columna estado
                     rs.getTimestamp("created_at")
                 };
                 modelo.addRow(fila);
@@ -164,7 +167,7 @@ public class Pago {
     }
 
     public void buscarHistorialPorCliente(String nombreCliente, JTable tabla) {
-        String[] columnas = {"ID Pago", "Cliente", "Tipo de Pago", "Fecha Inicio", "Fecha Fin", "Monto", "Concepto", "Hora y Fecha"};
+        String[] columnas = {"ID Pago", "Cliente", "Tipo de Pago", "Fecha Inicio", "Fecha Fin", "Monto", "Concepto", "Estado", "Hora y Fecha"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
 
         try (Connection conn = Conection.getConnection()) {
@@ -182,7 +185,7 @@ public class Pago {
             }
 
             String sql = "SELECT p.id_pago, c.nombre AS cliente, t.nombre AS tipo_pago, "
-                    + "p.fecha_inicio, p.fecha_fin, p.monto, p.concepto, p.created_at "
+                    + "p.fecha_inicio, p.fecha_fin, p.monto, p.concepto, p.estado, p.created_at "
                     + "FROM Pago p "
                     + "JOIN Cliente c ON p.id_cliente = c.id_cliente "
                     + "JOIN TipoPago t ON p.id_tipo_pago = t.id_tipo_pago "
@@ -203,6 +206,7 @@ public class Pago {
                             rs.getDate("fecha_fin"),
                             rs.getDouble("monto"),
                             rs.getString("concepto"),
+                            rs.getString("estado"),
                             rs.getTimestamp("created_at")
                         };
                         modelo.addRow(fila);
@@ -222,6 +226,63 @@ public class Pago {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al buscar historial: " + e.getMessage());
+        }
+    }
+
+    public void listarMembresias(JTable tabla) {
+        String[] columnas = {"ID Cliente", "Nombre", "Membresía", "Fecha Inicio", "Fecha Fin", "Estado"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+
+        String sql = "SELECT cm.id_cliente, c.nombre || ' ' || c.apellido AS cliente, "
+                + "m.tipo AS membresia, cm.fecha_inicio, cm.fecha_fin, cm.estado "
+                + "FROM Cliente_Membresia cm "
+                + "JOIN Cliente c ON cm.id_cliente = c.id_cliente "
+                + "JOIN Membresia m ON cm.id_membresia = m.id_membresia "
+                + "ORDER BY cm.id_cliente ASC";
+
+        try (Connection conn = Conection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_cliente"),
+                    rs.getString("cliente"),
+                    rs.getString("membresia"),
+                    rs.getDate("fecha_inicio"),
+                    rs.getDate("fecha_fin"),
+                    rs.getString("estado") // <- aquí se ve el estado
+                };
+                modelo.addRow(fila);
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al listar membresías: " + e.getMessage());
+        }
+    }
+
+    public void listarMem(JTable tabla) {
+        // Columnas que quieres mostrar
+        String[] columnas = {"ID", "Tipo", "Precio"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+
+        // Consulta SQL
+        String sql = "SELECT id_membresia, tipo, precio FROM Membresia ORDER BY id_membresia ASC";
+
+        try (Connection conn = Conection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_membresia"),
+                    rs.getString("tipo"),
+                    rs.getDouble("precio")
+                };
+                modelo.addRow(fila);
+            }
+
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al listar membresías: " + e.getMessage());
         }
     }
 

@@ -63,6 +63,8 @@ public class Recepcionista2 extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         SFI = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        CbEstado = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -72,6 +74,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
+        btnPago = new javax.swing.JButton();
         btnRegresa = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,6 +123,10 @@ public class Recepcionista2 extends javax.swing.JFrame {
 
         SFI.setModel(new javax.swing.SpinnerDateModel());
 
+        jLabel6.setText("Estado");
+
+        CbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activa", "Expirada", "Suspendida" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,9 +137,15 @@ public class Recepcionista2 extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(119, 119, 119)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(34, 34, 34)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(15, 15, 15)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -140,12 +153,8 @@ public class Recepcionista2 extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtIDC)
                                 .addComponent(CbM, 0, 152, Short.MAX_VALUE)
-                                .addComponent(SFI)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(34, 34, 34)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(SFI)
+                                .addComponent(CbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -168,7 +177,11 @@ public class Recepcionista2 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(SFI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(CbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEditar)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -278,6 +291,15 @@ public class Recepcionista2 extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 610, 160));
+
+        btnPago.setBackground(new java.awt.Color(0, 204, 255));
+        btnPago.setText("Pago");
+        btnPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 300, -1));
         getContentPane().add(btnRegresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 580));
 
         pack();
@@ -303,16 +325,16 @@ public class Recepcionista2 extends javax.swing.JFrame {
         String idClienteText = txtIDC.getText().trim();
         Date fechaInicio = (Date) SFI.getValue();
 
-        if (idClienteText.isEmpty() || CbM.getSelectedItem() == null) {
+        if (idClienteText.isEmpty() || CbM.getSelectedItem() == null || CbEstado.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
             int idCliente = Integer.parseInt(idClienteText);
+
             String tipoMembresia = CbM.getSelectedItem().toString().trim();
             int idMembresia = 0;
-
             switch (tipoMembresia) {
                 case "Basica":
                     idMembresia = 1;
@@ -325,37 +347,36 @@ public class Recepcionista2 extends javax.swing.JFrame {
                     break;
             }
 
-            daos.agregarMembresia(idCliente, idMembresia, fechaInicio);
+            String estado = CbEstado.getSelectedItem().toString().trim();
 
-            // Limpiar campos
+            daos.agregarMembresia(idCliente, idMembresia, fechaInicio, estado);
+
             txtIDC.setText("");
             CbM.setSelectedIndex(0);
+            CbEstado.setSelectedIndex(0);
             SFI.setValue(new Date());
             txtIDC.requestFocus();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El ID del cliente debe ser un número válido", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-
         String idClienteText = txtIDC.getText().trim();
         Date fechaInicio = (Date) SFI.getValue();
 
-        if (idClienteText.isEmpty() || CbM.getSelectedItem() == null) {
+        if (idClienteText.isEmpty() || CbM.getSelectedItem() == null || CbEstado.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
             int idCliente = Integer.parseInt(idClienteText);
+
             String tipoMembresia = CbM.getSelectedItem().toString().trim();
             int idMembresia = 0;
-
             switch (tipoMembresia) {
                 case "Basica":
                     idMembresia = 1;
@@ -368,19 +389,19 @@ public class Recepcionista2 extends javax.swing.JFrame {
                     break;
             }
 
-            // Solo enviamos la fecha de inicio, fecha final se calcula automáticamente
-            daos.editarMembresia(idCliente, idMembresia, fechaInicio);
+            String estado = CbEstado.getSelectedItem().toString().trim();
 
-            // Limpiar campos
+            daos.editarMembresia(idCliente, idMembresia, fechaInicio, estado);
+
             txtIDC.setText("");
             CbM.setSelectedIndex(0);
+            CbEstado.setSelectedIndex(0);
             SFI.setValue(new Date());
             txtIDC.requestFocus();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El ID del cliente debe ser un número válido", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -412,6 +433,13 @@ public class Recepcionista2 extends javax.swing.JFrame {
     private void CbMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbMActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CbMActionPerformed
+
+    private void btnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoActionPerformed
+        // TODO add your handling code here:
+        Recepcionista3 ventana2 = new Recepcionista3(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -449,11 +477,13 @@ public class Recepcionista2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CbEstado;
     private javax.swing.JComboBox<String> CbM;
     private javax.swing.JSpinner SFI;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnPago;
     private javax.swing.JLabel btnRegresa;
     private javax.swing.JButton btnVer;
     private javax.swing.JButton jButton1;
@@ -462,6 +492,7 @@ public class Recepcionista2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
