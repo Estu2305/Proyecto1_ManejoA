@@ -78,27 +78,45 @@ public class Servis {
     }
 
     // ==================== Editar ====================
-    public void editarClienteServicio(int idCliente, int idServicio, Date fecha) {
-        if (!validarCamposTexto(String.valueOf(idCliente), String.valueOf(idServicio), fecha.toString())) {
+    public void editarClienteServicio(int idCliente, int idServicio, Date fechaOriginal, Date nuevaFecha) {
+        if (!validarCamposTexto(String.valueOf(idCliente), String.valueOf(idServicio), fechaOriginal.toString())) {
             return;
         }
 
-        if (!existeRegistro(idCliente, idServicio)) {
-            JOptionPane.showMessageDialog(null,
-                    "No existe este registro Cliente-Servicio",
-                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        // Verificar que existe el registro original
+        String sqlCheck = "SELECT COUNT(*) FROM Cliente_Servicio WHERE id_cliente=? AND id_servicio=? AND fecha=?";
+        try (Connection conn = Conection.getConnection(); PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck)) {
+
+            stmtCheck.setInt(1, idCliente);
+            stmtCheck.setInt(2, idServicio);
+            stmtCheck.setDate(3, new java.sql.Date(fechaOriginal.getTime()));
+
+            ResultSet rs = stmtCheck.executeQuery();
+            if (rs.next() && rs.getInt(1) == 0) {
+                JOptionPane.showMessageDialog(null,
+                        "No existe este registro Cliente-Servicio",
+                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al verificar registro: " + e.getMessage());
             return;
         }
 
-        String sql = "UPDATE Cliente_Servicio SET fecha=? WHERE id_cliente=? AND id_servicio=?";
-        try (Connection conn = Conection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setDate(1, new java.sql.Date(fecha.getTime()));
+        // Actualizar fecha
+        String sqlUpdate = "UPDATE Cliente_Servicio SET fecha=? WHERE id_cliente=? AND id_servicio=? AND fecha=?";
+        try (Connection conn = Conection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sqlUpdate)) {
+
+            stmt.setDate(1, new java.sql.Date(nuevaFecha.getTime())); // nueva fecha
             stmt.setInt(2, idCliente);
             stmt.setInt(3, idServicio);
+            stmt.setDate(4, new java.sql.Date(fechaOriginal.getTime())); // fecha original en el WHERE
 
             int filas = stmt.executeUpdate();
             JOptionPane.showMessageDialog(null,
                     filas > 0 ? "Registro actualizado" : "No se pudo actualizar");
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al editar servicio: " + e.getMessage());
         }

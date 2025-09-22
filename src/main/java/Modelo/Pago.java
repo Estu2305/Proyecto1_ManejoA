@@ -21,33 +21,26 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Pago {
 
-    private boolean validarCamposTexto(String... campos) {
-        for (String campo : campos) {
-            if (campo == null || campo.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null,
-                        "Todos los campos deben estar completos",
-                        "Advertencia",
-                        JOptionPane.WARNING_MESSAGE);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // ==================== Agregar Pago ====================
-    private int obtenerIdCliente(Connection conn, String nombreCliente) throws SQLException {
-        String sql = "SELECT id_cliente FROM Cliente WHERE nombre = ?";
+    // ==================== Verificar si el pago ya existe ====================
+    private boolean existePago(Connection conn, int idCliente, int idTipoPago, Date fechaInicio, Date fechaFin, String concepto) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Pago WHERE id_cliente = ? AND id_tipo_pago = ? AND fecha_inicio = ? AND fecha_fin = ? AND concepto = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, nombreCliente);
+            stmt.setInt(1, idCliente);
+            stmt.setInt(2, idTipoPago);
+            stmt.setDate(3, new java.sql.Date(fechaInicio.getTime()));
+            stmt.setDate(4, new java.sql.Date(fechaFin.getTime()));
+            stmt.setString(5, concepto);
+
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("id_cliente");
+                    return rs.getInt(1) > 0; // true si ya existe
                 }
             }
         }
-        throw new SQLException("Cliente no encontrado: " + nombreCliente);
+        return false;
     }
 
+    // ==================== Agregar Pago ====================
     private int obtenerIdTipoPago(Connection conn, String nombreTipo) throws SQLException {
         String sql = "SELECT id_tipo_pago FROM TipoPago WHERE nombre = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -61,7 +54,7 @@ public class Pago {
         throw new SQLException("Tipo de pago no encontrado: " + nombreTipo);
     }
 
-    public void agregarPago(String cliente, String tipoPago,
+    public void agregarPago(int idCliente, String tipoPago,
             Date fechaInicio, Date fechaFin,
             double monto, String concepto, String estado) {
 
@@ -69,8 +62,15 @@ public class Pago {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conection.getConnection()) {
-            int idCliente = obtenerIdCliente(conn, cliente);
             int idTipoPago = obtenerIdTipoPago(conn, tipoPago);
+
+            if (existePago(conn, idCliente, idTipoPago, fechaInicio, fechaFin, concepto)) {
+                JOptionPane.showMessageDialog(null,
+                        "El cliente ya tiene un pago registrado con estos datos.",
+                        "Pago duplicado",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, idCliente);
@@ -90,7 +90,7 @@ public class Pago {
     }
 
     // ==================== Editar Pago ====================
-    public void editarPago(int idPago, String cliente, String tipoPago,
+    public void editarPago(int idPago, int idCliente, String tipoPago,
             Date fechaInicio, Date fechaFin,
             double monto, String concepto, String estado) {
 
@@ -98,7 +98,6 @@ public class Pago {
                 + "monto=?, concepto=?, estado=? WHERE id_pago=?";
 
         try (Connection conn = Conection.getConnection()) {
-            int idCliente = obtenerIdCliente(conn, cliente);
             int idTipoPago = obtenerIdTipoPago(conn, tipoPago);
 
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -166,23 +165,11 @@ public class Pago {
         }
     }
 
-    public void buscarHistorialPorCliente(String nombreCliente, JTable tabla) {
+    public void buscarHistorialPorCliente(int idCliente, JTable tabla) {
         String[] columnas = {"ID Pago", "Cliente", "Tipo de Pago", "Fecha Inicio", "Fecha Fin", "Monto", "Concepto", "Estado", "Hora y Fecha"};
         DefaultTableModel modelo = new DefaultTableModel(null, columnas);
 
         try (Connection conn = Conection.getConnection()) {
-
-            // Verificar si el cliente existe antes de hacer la consulta
-            int idCliente;
-            try {
-                idCliente = obtenerIdCliente(conn, nombreCliente);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,
-                        "El cliente '" + nombreCliente + "' no está registrado.",
-                        "Cliente no encontrado",
-                        JOptionPane.WARNING_MESSAGE);
-                return; // salimos, no hacemos la consulta
-            }
 
             String sql = "SELECT p.id_pago, c.nombre AS cliente, t.nombre AS tipo_pago, "
                     + "p.fecha_inicio, p.fecha_fin, p.monto, p.concepto, p.estado, p.created_at "
@@ -215,7 +202,7 @@ public class Pago {
 
                     if (!tieneHistorial) {
                         JOptionPane.showMessageDialog(null,
-                                "El cliente '" + nombreCliente + "' no tiene historial de pagos.",
+                                "El cliente con ID " + idCliente + " no tiene historial de pagos.",
                                 "Historial vacío",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }

@@ -87,6 +87,8 @@ public class Recepcionista3 extends javax.swing.JFrame {
         TablaMembresia = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaServ = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        TableS = new javax.swing.JTable();
         btnVer = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -95,7 +97,6 @@ public class Recepcionista3 extends javax.swing.JFrame {
         TablaClientes = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         TablaPS = new javax.swing.JTable();
-        btnPagosTabla = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
@@ -338,6 +339,21 @@ public class Recepcionista3 extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Servicio", jScrollPane3);
 
+        TableS.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane7.setViewportView(TableS);
+
+        jTabbedPane1.addTab("Pagos", jScrollPane7);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 710, 220));
 
         btnVer.setText("Visualizar");
@@ -394,14 +410,6 @@ public class Recepcionista3 extends javax.swing.JFrame {
         jTabbedPane2.addTab("Precios de Servicios", jScrollPane6);
 
         getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 430, 110));
-
-        btnPagosTabla.setText("Tabla Pagos");
-        btnPagosTabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagosTablaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnPagosTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 270, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1170, 630));
 
         pack();
@@ -416,24 +424,24 @@ public class Recepcionista3 extends javax.swing.JFrame {
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
-        String cliente = txtCliente.getText().trim();
+        String idClienteText = txtCliente.getText().trim(); // <-- ahora ID, no nombre
         String tipoPago = CbPago.getSelectedItem().toString();
         String concepto = CbConcepto.getSelectedItem().toString();
-        String estado = CbE.getSelectedItem().toString(); // <-- nuevo
+        String estado = CbE.getSelectedItem().toString();
         String montoText = txtmonto.getText().trim();
 
         Date fechaInicio = (Date) SFI.getValue();
         Date fechaFin = (Date) SFF.getValue();
 
-        if (cliente.isEmpty() || montoText.isEmpty()) {
+        if (idClienteText.isEmpty() || montoText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
+            int idCliente = Integer.parseInt(idClienteText);  // <-- conversión a int
             double monto = Double.parseDouble(montoText);
 
-            // ===== Aplicar descuento SOLO si es Membresía =====
             if (concepto.equalsIgnoreCase("Membresia")) {
                 if (monto == 300) { // Básica
                     monto = 300;
@@ -447,43 +455,43 @@ public class Recepcionista3 extends javax.swing.JFrame {
                 }
             }
 
-            // Llamada al DAO incluyendo estado
-            pagosDAO.agregarPago(cliente, tipoPago, fechaInicio, fechaFin, monto, concepto, estado);
+            pagosDAO.agregarPago(idCliente, tipoPago, fechaInicio, fechaFin, monto, concepto, estado);
 
-            // Limpiar campos
             txtCliente.setText("");
             CbPago.setSelectedIndex(0);
             CbConcepto.setSelectedIndex(0);
-            CbE.setSelectedIndex(0); // <-- limpiar estado
+            CbE.setSelectedIndex(0);
             txtmonto.setText("");
             SFI.setValue(new Date());
             SFF.setValue(new Date());
             txtCliente.requestFocus();
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El monto debe ser numérico válido", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El ID y el monto deben ser numéricos válidos", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         String idPagoText = txtIDP.getText().trim();
-        String cliente = txtCliente.getText().trim();
+        String idClienteText = txtCliente.getText().trim();
         String tipoPago = CbPago.getSelectedItem().toString();
         String concepto = CbConcepto.getSelectedItem().toString();
-        String estado = CbE.getSelectedItem().toString(); // <-- nuevo
+        String estado = CbE.getSelectedItem().toString();
         String montoText = txtmonto.getText().trim();
 
         Date fechaInicio = (Date) SFI.getValue();
         Date fechaFin = (Date) SFF.getValue();
 
-        if (idPagoText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar el ID del pago para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (idPagoText.isEmpty() || idClienteText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar el ID del pago y el ID del cliente", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
             int idPago = Integer.parseInt(idPagoText);
+            int idCliente = Integer.parseInt(idClienteText);  // <-- ahora lo usamos como int
             double monto = Double.parseDouble(montoText);
 
             if (concepto.equalsIgnoreCase("Membresia")) {
@@ -499,15 +507,15 @@ public class Recepcionista3 extends javax.swing.JFrame {
                 }
             }
 
-            // Llamada al DAO incluyendo estado
-            pagosDAO.editarPago(idPago, cliente, tipoPago, fechaInicio, fechaFin, monto, concepto, estado);
+            // Llamada al DAO usando ID de cliente
+            pagosDAO.editarPago(idPago, idCliente, tipoPago, fechaInicio, fechaFin, monto, concepto, estado);
 
             // Limpiar campos
             txtIDP.setText("");
-            txtCliente.setText("");
+            txtCliente.setText(""); // sigue mostrando ID del cliente
             CbPago.setSelectedIndex(0);
             CbConcepto.setSelectedIndex(0);
-            CbE.setSelectedIndex(0); // <-- limpiar estado
+            CbE.setSelectedIndex(0);
             txtmonto.setText("");
             SFI.setValue(new Date());
             SFF.setValue(new Date());
@@ -516,6 +524,7 @@ public class Recepcionista3 extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El ID y el monto deben ser numéricos válidos", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
+
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -552,14 +561,16 @@ public class Recepcionista3 extends javax.swing.JFrame {
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
         // TODO add your handling code here:
-        String nombreCliente = txtCliente.getText().trim();
-        if (nombreCliente.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un nombre de cliente", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        String idClienteText = txtCliente.getText().trim();
+        if (idClienteText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID de cliente", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        int idCliente = Integer.parseInt(idClienteText);
 
         Pago pagoDAO = new Pago();
-        pagoDAO.buscarHistorialPorCliente(nombreCliente, jTable2);
+        pagoDAO.buscarHistorialPorCliente(idCliente, jTable2);
+
 
     }//GEN-LAST:event_btnHistorialActionPerformed
 
@@ -576,19 +587,14 @@ public class Recepcionista3 extends javax.swing.JFrame {
         dao.listarClientes(TablaClientes);
         Servis daeo = new Servis();
         daeo.listarClienteServicios(TablaServ);
+
+        Pago re = new Pago();
+        re.listarPagos(TableS);
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void CbPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbPagoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CbPagoActionPerformed
-
-    private void btnPagosTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagosTablaActionPerformed
-        // TODO add your handling code here:
-
-        Recepcionista6 ventana2 = new Recepcionista6(); // crear nueva ventana
-        ventana2.setVisible(true);                       // mostrar nueva ventana
-        this.setVisible(false);
-    }//GEN-LAST:event_btnPagosTablaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -636,11 +642,11 @@ public class Recepcionista3 extends javax.swing.JFrame {
     private javax.swing.JTable TablaPM;
     private javax.swing.JTable TablaPS;
     private javax.swing.JTable TablaServ;
+    private javax.swing.JTable TableS;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnPagar;
-    private javax.swing.JButton btnPagosTabla;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnVer;
     private javax.swing.JLabel jLabel1;
@@ -662,6 +668,7 @@ public class Recepcionista3 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable2;

@@ -204,17 +204,17 @@ public class Recepcionista5 extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(262, 262, 262)
-                .addComponent(btnVer, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 11, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(242, 242, 242)
+                .addComponent(btnVer, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -224,9 +224,9 @@ public class Recepcionista5 extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVer)
-                .addGap(158, 158, 158))
+                .addGap(164, 164, 164))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 680, 320));
@@ -337,7 +337,6 @@ public class Recepcionista5 extends javax.swing.JFrame {
 
             dao.agregarClienteServicio(idCliente, idServicio, fecha);
 
-
             // Limpiar campos
             txtCliente.setText("");
             txtServi.setText("");
@@ -351,20 +350,20 @@ public class Recepcionista5 extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        String idClienteText = txtCliente.getText().trim();
-        String idServicioText = txtServi.getText().trim();
-        Date fecha = (Date) SFecha.getValue();
-
-        if (idClienteText.isEmpty() || idServicioText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        int fila = TableServ.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un registro de la tabla para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            int idCliente = Integer.parseInt(idClienteText);
-            int idServicio = Integer.parseInt(idServicioText);
+            int idCliente = Integer.parseInt(TableServ.getValueAt(fila, 0).toString());
+            int idServicio = Integer.parseInt(TableServ.getValueAt(fila, 1).toString());
+            Date fechaOriginal = (Date) TableServ.getValueAt(fila, 2); // fecha original
 
-            dao.editarClienteServicio(idCliente, idServicio, fecha);
+            Date nuevaFecha = (Date) SFecha.getValue();
+
+            dao.editarClienteServicio(idCliente, idServicio, fechaOriginal, nuevaFecha);
 
             txtCliente.setText("");
             txtServi.setText("");
