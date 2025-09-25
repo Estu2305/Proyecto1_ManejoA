@@ -15,12 +15,9 @@ import java.sql.ResultSet;
  */
 public class Inicio {
 
-    public String validarLogin(String usuario, String contrasenia) {
-
-        String rol = null;
-
+    public Object[] validarLogin(String usuario, String contrasenia) {
         try (Connection conn = Conection.getConnection()) {
-            String sql = "SELECT e.usuario, r.nombre AS rol "
+            String sql = "SELECT e.id_empleado, r.nombre AS rol "
                     + "FROM Empleado e "
                     + "JOIN Rol r ON e.id_rol = r.id_rol "
                     + "WHERE e.usuario = ? AND e.contrasenia = ?";
@@ -31,12 +28,12 @@ public class Inicio {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                rol = rs.getString("rol");
+                return new Object[]{rs.getInt("id_empleado"), rs.getString("rol")};
             }
         } catch (Exception ex) {
             System.out.println("Error en validarLogin: " + ex.getMessage());
         }
-
-        return rol; // si es null, significa que no encontró usuario
+        return null;
     }
+
 }

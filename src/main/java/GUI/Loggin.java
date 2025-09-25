@@ -129,13 +129,14 @@ public class Loggin extends javax.swing.JFrame {
         String contrasenia = txtcontrasenia.getText();
 
         Inicio loginService = new Inicio();
-        String rol = loginService.validarLogin(usuario, contrasenia);
+        Object[] datos = loginService.validarLogin(usuario, contrasenia);
 
-        if (rol != null) {
+        if (datos != null) {
+            int idEmpleado = (int) datos[0];
+            String rol = (String) datos[1];
+
             JOptionPane.showMessageDialog(this, "Bienvenido " + usuario + " (" + rol + ")");
-            // aquí podrías abrir otra ventana según el rol
 
-            // Abrir ventana según rol
             switch (rol) {
                 case "Administrador":
                     new Administrador().setVisible(true);
@@ -144,7 +145,7 @@ public class Loggin extends javax.swing.JFrame {
                     new Recepcionista().setVisible(true);
                     break;
                 case "Entrenador":
-                    new Entrenador().setVisible(true);
+                    new Entrenador(idEmpleado).setVisible(true); 
                     break;
                 case "Inventario":
                     new Inventario().setVisible(true);
@@ -153,8 +154,6 @@ public class Loggin extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Rol no reconocido");
                     return;
             }
-
-            // Cerrar ventana de login
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");

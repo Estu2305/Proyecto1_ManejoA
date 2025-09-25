@@ -4,6 +4,16 @@
  */
 package GUI;
 
+import static GUI.Entrenador3.CbEquipo;
+import Modelo.Ej;
+import Modelo.Entrena;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author SELVYN
@@ -13,8 +23,44 @@ public class Entrenador extends javax.swing.JFrame {
     /**
      * Creates new form Entrenador
      */
+    private int idEntrenador;
+    private DefaultTableModel modeloClientes;  // se declara global
+
     public Entrenador() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
+        try {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("imagenes/B1.jpg");
+            if (is != null) {
+                BufferedImage img = ImageIO.read(is);
+                jLabel1.setIcon(new ImageIcon(img));
+            } else {
+                System.out.println("No se encontró la imagen!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // aquí defines el modelo de la tabla solo una vez
+        modeloClientes = new DefaultTableModel(
+                new String[]{"ID Cliente", "Nombre", "Apellido", "Fecha Asignación", "Fecha Fin"}, 0
+        );
+        TCliente.setModel(modeloClientes);
+    }
+    
+    public Entrenador(int idEntrenador) {
+        this(); // llama al constructor anterior
+        this.idEntrenador = idEntrenador;
+        
+        cargarClientesAsignados(); // ya no creas modelo nuevo aquí
+    }
+    
+    public void cargarClientesAsignados() {
+        modeloClientes.setRowCount(0); // limpia pero conserva las columnas
+        Entrena aux = new Entrena();
+        aux.cargarClientesAsignados(TCliente, idEntrenador);
     }
 
     /**
@@ -26,21 +72,140 @@ public class Entrenador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TCliente = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btnHA = new javax.swing.JButton();
+        btnRutinas = new javax.swing.JButton();
+        btnEjercicios = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaHistorial = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        TCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(TCliente);
+
+        jTabbedPane1.addTab("Clientes Asignados", jScrollPane1);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 1100, 250));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnHA.setBackground(new java.awt.Color(0, 255, 255));
+        btnHA.setText("Historial Asistencia");
+        btnHA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHAActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnHA, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 30, 250, -1));
+
+        btnRutinas.setBackground(new java.awt.Color(0, 255, 255));
+        btnRutinas.setText("Rutinas");
+        btnRutinas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRutinasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRutinas, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 70, 250, -1));
+
+        btnEjercicios.setBackground(new java.awt.Color(0, 255, 255));
+        btnEjercicios.setText("Ejercicios");
+        btnEjercicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjerciciosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEjercicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 110, 250, -1));
+
+        btnCerrar.setBackground(new java.awt.Color(0, 255, 255));
+        btnCerrar.setText("Cerrar Sesion");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 250, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 320, 200));
+
+        TablaHistorial.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        TablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(TablaHistorial);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 700, 230));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnHAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHAActionPerformed
+        // TODO add your handling code here:
+        int fila = TCliente.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un cliente de la tabla");
+            return;
+        }
+        
+        int idCliente = (int) TCliente.getValueAt(fila, 0);
+        
+        Entrena aux = new Entrena();
+        aux.cargarHistorialAsistencia(TablaHistorial, idCliente);
+        
+
+    }//GEN-LAST:event_btnHAActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        // TODO add your handling code here:
+        Loggin ventana2 = new Loggin(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnRutinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRutinasActionPerformed
+        // TODO add your handling code here:
+        Entrenador3 ventana2 = new Entrenador3(this.idEntrenador); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+        
+        Ej r = new Ej();
+        r.cargarEquiposPorEntrenador(CbEquipo, idEntrenador);
+
+    }//GEN-LAST:event_btnRutinasActionPerformed
+
+    private void btnEjerciciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjerciciosActionPerformed
+        // TODO add your handling code here:
+        Entrenador2 ventana2 = new Entrenador2(this.idEntrenador); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnEjerciciosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +243,16 @@ public class Entrenador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable TCliente;
+    private javax.swing.JTable TablaHistorial;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnEjercicios;
+    private javax.swing.JButton btnHA;
+    private javax.swing.JButton btnRutinas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

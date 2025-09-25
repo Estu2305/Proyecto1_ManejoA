@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import static GUI.Recepcionista3.CbEntrenador;
 import Modelo.Asis;
+import Modelo.Entrena;
 import Modelo.Ser;
 import Modelo.Servis;
 import java.awt.image.BufferedImage;
@@ -422,6 +424,9 @@ public class Recepcionista5 extends javax.swing.JFrame {
         Recepcionista3 ventana2 = new Recepcionista3(); // crear nueva ventana
         ventana2.setVisible(true);                       // mostrar nueva ventana
         this.setVisible(false);
+
+        Entrena dao = new Entrena();
+        dao.cargarEntrenadores(CbEntrenador);
     }//GEN-LAST:event_btnPagoActionPerformed
 
     /**
