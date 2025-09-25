@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Admin {
 
-    // ==================== Métodos de ayuda ====================
+    // ==================== Métodos ayuda ====================
     private boolean validarCamposTexto(String... campos) {
         for (String campo : campos) {
             if (campo == null || campo.trim().isEmpty()) {
@@ -237,4 +237,28 @@ public class Admin {
         }
         return false;
     }
+
+    public void listarSucursales(JTable tabla) {
+        String[] columnas = {"ID Sucursal", "Nombre", "Ubicación"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+
+        String sql = "SELECT id_sucursal, nombre, ubicacion FROM Sucursal ORDER BY id_sucursal ASC";
+
+        try (Connection conn = Conection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getInt("id_sucursal"),
+                    rs.getString("nombre"),
+                    rs.getString("ubicacion")
+                };
+                modelo.addRow(fila);
+            }
+            tabla.setModel(modelo);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al listar sucursales: " + e.getMessage());
+        }
+    }
+
 }

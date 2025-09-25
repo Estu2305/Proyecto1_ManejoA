@@ -30,7 +30,7 @@ public class Entrenador extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        
+
         try {
             InputStream is = getClass().getClassLoader().getResourceAsStream("imagenes/B1.jpg");
             if (is != null) {
@@ -42,21 +42,19 @@ public class Entrenador extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // aquí defines el modelo de la tabla solo una vez
         modeloClientes = new DefaultTableModel(
                 new String[]{"ID Cliente", "Nombre", "Apellido", "Fecha Asignación", "Fecha Fin"}, 0
         );
         TCliente.setModel(modeloClientes);
     }
-    
+
     public Entrenador(int idEntrenador) {
         this(); // llama al constructor anterior
         this.idEntrenador = idEntrenador;
-        
-        cargarClientesAsignados(); // ya no creas modelo nuevo aquí
+
+        cargarClientesAsignados();
     }
-    
+
     public void cargarClientesAsignados() {
         modeloClientes.setRowCount(0); // limpia pero conserva las columnas
         Entrena aux = new Entrena();
@@ -173,12 +171,12 @@ public class Entrenador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione un cliente de la tabla");
             return;
         }
-        
+
         int idCliente = (int) TCliente.getValueAt(fila, 0);
-        
+
         Entrena aux = new Entrena();
         aux.cargarHistorialAsistencia(TablaHistorial, idCliente);
-        
+
 
     }//GEN-LAST:event_btnHAActionPerformed
 
@@ -194,7 +192,7 @@ public class Entrenador extends javax.swing.JFrame {
         Entrenador3 ventana2 = new Entrenador3(this.idEntrenador); // crear nueva ventana
         ventana2.setVisible(true);                       // mostrar nueva ventana
         this.setVisible(false);
-        
+
         Ej r = new Ej();
         r.cargarEquiposPorEntrenador(CbEquipo, idEntrenador);
 

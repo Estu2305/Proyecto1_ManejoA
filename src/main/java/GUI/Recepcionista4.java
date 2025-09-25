@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import Modelo.Admin;
 import Modelo.Asis;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
@@ -69,9 +70,11 @@ public class Recepcionista4 extends javax.swing.JFrame {
         jTable12 = new javax.swing.JTable();
         btnVer = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TablaS = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -248,8 +251,6 @@ public class Recepcionista4 extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 300, -1));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(51, 51, 51), new java.awt.Color(0, 0, 0)));
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -263,24 +264,24 @@ public class Recepcionista4 extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable1);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
+        jTabbedPane1.addTab("Clientes", jScrollPane2);
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 370, 540, 170));
+        TablaS.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(TablaS);
+
+        jTabbedPane1.addTab("Sucursales", jScrollPane3);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 600, 140));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 630));
 
         pack();
@@ -395,8 +396,11 @@ public class Recepcionista4 extends javax.swing.JFrame {
         // TODO add your handling code here:
         Asis dao = new Asis();
         dao.listarAsistencias(jTable12);
-        
+
         dao.listarClientes(jTable1);
+
+        Admin a = new Admin();
+        a.listarSucursales(TablaS);
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void txtAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAsistenciaActionPerformed
@@ -439,6 +443,7 @@ public class Recepcionista4 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaS;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -453,9 +458,10 @@ public class Recepcionista4 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable12;
     private javax.swing.JSpinner spinnerFechaHora;

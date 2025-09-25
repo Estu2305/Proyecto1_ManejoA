@@ -4,6 +4,13 @@
  */
 package GUI;
 
+import Modelo.Inv;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SELVYN
@@ -13,8 +20,24 @@ public class Inventario extends javax.swing.JFrame {
     /**
      * Creates new form Inventario
      */
+    Inv inv = new Inv();
+
     public Inventario() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+
+        try {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("imagenes/I3.jpg");
+            if (is != null) {
+                BufferedImage img = ImageIO.read(is);
+                jLabel1.setIcon(new ImageIcon(img));
+            } else {
+                System.out.println("No se encontró la imagen!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -26,21 +49,260 @@ public class Inventario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtEquipo = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        btnAgregar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaEquipos = new javax.swing.JTable();
+        btnVer = new javax.swing.JButton();
+        btnInventario = new javax.swing.JButton();
+        btnCS = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+
+        jLabel2.setText("Agregar Equipos");
+
+        jLabel3.setText("ID Equipo");
+
+        jLabel4.setText("Nombre");
+
+        jLabel5.setText("Descripcion");
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                    .addComponent(txtEquipo)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(68, 68, 68)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEditar))
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminar)
+                .addGap(20, 20, 20))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 330, 340));
+
+        TablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(TablaEquipos);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, 610, 340));
+
+        btnVer.setText("Ver");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 210, -1));
+
+        btnInventario.setText("Inventario");
+        btnInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInventarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, 210, -1));
+
+        btnCS.setText("Cerrar Sesion");
+        btnCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCSActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 520, 220, -1));
+
+        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCSActionPerformed
+        // TODO add your handling code here:
+        Loggin ventana2 = new Loggin(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCSActionPerformed
+
+    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
+        // TODO add your handling code here:
+        Inventario2 ventana2 = new Inventario2(); // crear nueva ventana
+        ventana2.setVisible(true);                       // mostrar nueva ventana
+        this.setVisible(false);
+    }//GEN-LAST:event_btnInventarioActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if (txtEquipo.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el ID del equipo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            int id = Integer.parseInt(txtEquipo.getText());
+            String nombre = txtNombre.getText();
+            String descripcion = txtDescripcion.getText();
+
+            if (nombre.trim().isEmpty() || descripcion.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            inv.agregarEquipo(id, nombre, descripcion);
+            inv.listarEquipos(TablaEquipos);
+            inv.limpiarCampos(txtEquipo, txtNombre, txtDescripcion);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (txtEquipo.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el ID del equipo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            int id = Integer.parseInt(txtEquipo.getText());
+            String nombre = txtNombre.getText();
+            String descripcion = txtDescripcion.getText();
+
+            if (nombre.trim().isEmpty() || descripcion.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            inv.editarEquipo(id, nombre, descripcion);
+            inv.listarEquipos(TablaEquipos);
+            inv.limpiarCampos(txtEquipo, txtNombre, txtDescripcion);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if (txtEquipo.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un ID de equipo para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            int id = Integer.parseInt(txtEquipo.getText());
+            int opcion = JOptionPane.showConfirmDialog(null,
+                    "¿Está seguro de eliminar este equipo?",
+                    "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                inv.eliminarEquipo(id);
+                inv.listarEquipos(TablaEquipos);
+                inv.limpiarCampos(txtEquipo, txtNombre, txtDescripcion);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        // TODO add your handling code here:
+        inv.listarEquipos(TablaEquipos);
+    }//GEN-LAST:event_btnVerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +340,23 @@ public class Inventario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaEquipos;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCS;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnInventario;
+    private javax.swing.JButton btnVer;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtEquipo;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

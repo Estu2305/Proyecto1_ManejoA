@@ -4,10 +4,17 @@
  */
 package GUI;
 
+import Controlador.Conection;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +44,34 @@ public class Administrador2 extends javax.swing.JFrame {
         }
     }
 
+    public void cargarTabla(JTable tabla, String query) {
+        try (Connection con = Conection.getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnas = rsmd.getColumnCount();
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            tabla.setModel(modelo);
+
+            // Encabezados
+            for (int i = 1; i <= columnas; i++) {
+                modelo.addColumn(rsmd.getColumnName(i));
+            }
+
+            // Filas
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 1; i <= columnas; i++) {
+                    fila[i - 1] = rs.getObject(i);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,12 +93,12 @@ public class Administrador2 extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         CbMeYPa = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CbRI = new javax.swing.JComboBox<>();
         btnRegresar = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaR = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,6 +143,11 @@ public class Administrador2 extends javax.swing.JFrame {
         jLabel12.setText("Reportes Entrenadores");
 
         CbEntrenadores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1. Top 5 mas clientes", "2. Top 5 Mayo Rutinas", "3. Ranking de Entrenamiento", "4. Mayores Especialidades" }));
+        CbEntrenadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbEntrenadoresActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -137,6 +177,11 @@ public class Administrador2 extends javax.swing.JFrame {
         jLabel13.setText("Reportes Sucursales");
 
         CbSucursales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1. Con Mas Ingresos", "2. Numero de Asistencia" }));
+        CbSucursales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbSucursalesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -168,6 +213,11 @@ public class Administrador2 extends javax.swing.JFrame {
         jLabel14.setText("Reportes Membresia y Pago");
 
         CbMeYPa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1. Mas vendidas", "2. Ingresos Totales", "3. Pago por Fecha", "4. Distribucion de Clientes" }));
+        CbMeYPa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbMeYPaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -192,22 +242,14 @@ public class Administrador2 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 260, 110));
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 820, 290));
-
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
 
         jLabel2.setText("Reportes Inventario");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1. Mas Utilizadas", "2. Con mayor coincidencia", "3. Control de Equipos", "4. Mantenimiento", "5. Top 5 Mas Utilizados" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        CbRI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1. Mas Utilizadas", "2. Con mayor coincidencia", "3. Control de Equipos", "4. Mantenimiento", "5. Top 5 Mas Utilizados" }));
+        CbRI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                CbRIActionPerformed(evt);
             }
         });
 
@@ -219,7 +261,7 @@ public class Administrador2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CbRI, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -228,7 +270,7 @@ public class Administrador2 extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CbRI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -241,7 +283,23 @@ public class Administrador2 extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 340, 100, 50));
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 380, 100, 50));
+
+        TablaR.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        TablaR.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(TablaR);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 810, 300));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 584));
 
         pack();
@@ -256,11 +314,232 @@ public class Administrador2 extends javax.swing.JFrame {
 
     private void CbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbClientesActionPerformed
         // TODO add your handling code here:
+        String opcion = CbClientes.getSelectedItem().toString();
+
+        switch (opcion) {
+            case "1. Top 10 Frecuentes":
+                cargarTabla(TablaR,
+                        "SELECT c.id_cliente, c.nombre, c.apellido, COUNT(a.id_asistencia) AS asistencias "
+                        + "FROM Cliente c "
+                        + "JOIN Asistencia a ON c.id_cliente = a.id_cliente "
+                        + "GROUP BY c.id_cliente, c.nombre, c.apellido "
+                        + "ORDER BY asistencias DESC LIMIT 10");
+                break;
+
+            case "2. Top 10 Mayor Gasto":
+                cargarTabla(TablaR,
+                        "SELECT c.id_cliente, c.nombre, c.apellido, SUM(p.monto) AS gasto_total "
+                        + "FROM Cliente c "
+                        + "JOIN Pago p ON c.id_cliente = p.id_cliente "
+                        + "GROUP BY c.id_cliente, c.nombre, c.apellido "
+                        + "ORDER BY gasto_total DESC LIMIT 10");
+                break;
+
+            case "3. Mas Asistencia":
+                cargarTabla(TablaR,
+                        "SELECT c.id_cliente, c.nombre, c.apellido, "
+                        + "COUNT(DISTINCT a.id_sucursal) AS sucursales_visitadas, "
+                        + "ROUND(COUNT(DISTINCT a.id_sucursal)::decimal / NULLIF(COUNT(a.id_asistencia),0), 2) AS ratio_cruzado "
+                        + "FROM Cliente c "
+                        + "JOIN Asistencia a ON c.id_cliente = a.id_cliente "
+                        + "GROUP BY c.id_cliente, c.nombre, c.apellido "
+                        + "ORDER BY ratio_cruzado DESC "
+                        + "LIMIT 10;");
+                break;
+        }
+
     }//GEN-LAST:event_CbClientesActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void CbRIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbRIActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        String opcion = CbRI.getSelectedItem().toString();
+
+        switch (opcion) {
+            case "1. Mas Utilizadas":
+                cargarTabla(TablaR,
+                        "SELECT e.nombre AS equipo, COUNT(re.id_ejercicio) AS veces_usado "
+                        + "FROM Equipo e "
+                        + "JOIN Ejercicio_Equipo ee ON e.id_equipo = ee.id_equipo "
+                        + "JOIN Rutina_Ejercicio re ON ee.id_ejercicio = re.id_ejercicio AND ee.id_rutina = re.id_rutina "
+                        + "GROUP BY e.nombre "
+                        + "ORDER BY veces_usado DESC;");
+                break;
+
+            case "2. Con mayor coincidencia":
+                cargarTabla(TablaR,
+                        "SELECT eq.nombre AS equipo, COUNT(*) AS uso_total "
+                        + "FROM Cliente_Membresia cm "
+                        + "JOIN Membresia m ON cm.id_membresia = m.id_membresia "
+                        + "JOIN Rutina r ON cm.id_cliente = r.id_cliente "
+                        + "JOIN Rutina_Ejercicio re ON r.id_rutina = re.id_rutina "
+                        + "JOIN Ejercicio_Equipo ee ON re.id_ejercicio = ee.id_ejercicio AND r.id_rutina = ee.id_rutina "
+                        + "JOIN Equipo eq ON ee.id_equipo = eq.id_equipo "
+                        + "WHERE m.tipo IN ('Premium','VIP') "
+                        + "GROUP BY eq.nombre "
+                        + "ORDER BY uso_total DESC;");
+                break;
+
+            case "3. Control de Equipos":
+                cargarTabla(TablaR,
+                        "SELECT s.nombre AS sucursal, e.nombre AS equipo, i.cantidad, i.estado "
+                        + "FROM Inventario i "
+                        + "JOIN Sucursal s ON i.id_sucursal = s.id_sucursal "
+                        + "JOIN Equipo e ON i.id_equipo = e.id_equipo "
+                        + "ORDER BY s.nombre, e.nombre;");
+                break;
+
+            case "4. Mantenimiento":
+                cargarTabla(TablaR,
+                        "SELECT s.nombre AS sucursal, e.nombre AS equipo, i.cantidad "
+                        + "FROM Inventario i "
+                        + "JOIN Sucursal s ON i.id_sucursal = s.id_sucursal "
+                        + "JOIN Equipo e ON i.id_equipo = e.id_equipo "
+                        + "WHERE i.requiere_mantenimiento = TRUE;");
+                break;
+
+            case "5. Top 5 Mas Utilizados":
+                cargarTabla(TablaR,
+                        "SELECT s.nombre AS sucursal, eq.nombre AS equipo, COUNT(*) AS usos "
+                        + "FROM Sucursal s "
+                        + "JOIN Inventario i ON s.id_sucursal = i.id_sucursal "
+                        + "JOIN Equipo eq ON i.id_equipo = eq.id_equipo "
+                        + "JOIN Ejercicio_Equipo ee ON eq.id_equipo = ee.id_equipo "
+                        + "JOIN Rutina r ON ee.id_rutina = r.id_rutina "
+                        + "JOIN Asistencia a ON r.id_cliente = a.id_cliente AND s.id_sucursal = a.id_sucursal "
+                        + "GROUP BY s.nombre, eq.nombre "
+                        + "ORDER BY s.nombre, usos DESC "
+                        + "LIMIT 5;");
+                break;
+        }
+
+
+    }//GEN-LAST:event_CbRIActionPerformed
+
+    private void CbEntrenadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbEntrenadoresActionPerformed
+        // TODO add your handling code here:
+
+        String opcion = CbEntrenadores.getSelectedItem().toString();
+
+        switch (opcion) {
+            case "1. Top 5 mas clientes":
+                cargarTabla(TablaR,
+                        "SELECT e.id_empleado, e.nombre, e.apellido, COUNT(DISTINCT ce.id_cliente) AS clientes_asignados "
+                        + "FROM Empleado e "
+                        + "JOIN Cliente_Entrenador ce ON e.id_empleado = ce.id_entrenador "
+                        + "GROUP BY e.id_empleado, e.nombre, e.apellido "
+                        + "ORDER BY clientes_asignados DESC "
+                        + "LIMIT 5;");
+                break;
+
+            case "2. Top 5 Mayo Rutinas":
+                cargarTabla(TablaR,
+                        "SELECT e.id_empleado, e.nombre, e.apellido, COUNT(r.id_rutina) AS rutinas_creadas "
+                        + "FROM Empleado e "
+                        + "JOIN Rutina r ON e.id_empleado = r.id_entrenador "
+                        + "GROUP BY e.id_empleado, e.nombre, e.apellido "
+                        + "ORDER BY rutinas_creadas DESC "
+                        + "LIMIT 5;");
+                break;
+
+            case "3. Ranking de Entrenamiento":
+                cargarTabla(TablaR,
+                        "SELECT e.id_empleado, e.nombre, e.apellido, "
+                        + "COUNT(DISTINCT ce.id_cliente) AS clientes_retenidos "
+                        + "FROM Empleado e "
+                        + "JOIN Cliente_Entrenador ce ON e.id_empleado = ce.id_entrenador "
+                        + "WHERE ce.fecha_fin IS NULL "
+                        + "   OR AGE(ce.fecha_fin, ce.fecha_asignacion) >= INTERVAL '1 year' "
+                        + "GROUP BY e.id_empleado, e.nombre, e.apellido "
+                        + "ORDER BY clientes_retenidos DESC;");
+                break;
+
+            case "4. Mayores Especialidades":
+                cargarTabla(TablaR,
+                        "SELECT e.id_empleado, e.nombre, e.apellido, COUNT(DISTINCT cs.id_cliente) AS clientes_servicios "
+                        + "FROM Empleado e "
+                        + "JOIN Rutina r ON e.id_empleado = r.id_entrenador "
+                        + "JOIN Cliente_Servicio cs ON r.id_cliente = cs.id_cliente "
+                        + "GROUP BY e.id_empleado, e.nombre, e.apellido "
+                        + "ORDER BY clientes_servicios DESC;");
+                break;
+        }
+    }//GEN-LAST:event_CbEntrenadoresActionPerformed
+
+    private void CbSucursalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbSucursalesActionPerformed
+        // TODO add your handling code here:
+
+        String opcion = CbSucursales.getSelectedItem().toString();
+
+        switch (opcion) {
+            case "1. Con Mas Ingresos":
+                cargarTabla(TablaR,
+                        "SELECT s.id_sucursal, s.nombre, SUM(p.monto) AS ingresos_totales "
+                        + "FROM Sucursal s "
+                        + "JOIN Asistencia a ON s.id_sucursal = a.id_sucursal "
+                        + "JOIN Pago p ON a.id_cliente = p.id_cliente "
+                        + "GROUP BY s.id_sucursal, s.nombre "
+                        + "ORDER BY ingresos_totales DESC;");
+                break;
+
+            case "2. Numero de Asistencia":
+                cargarTabla(TablaR,
+                        "SELECT s.id_sucursal, s.nombre, COUNT(a.id_asistencia) AS total_asistencias "
+                        + "FROM Sucursal s "
+                        + "JOIN Asistencia a ON s.id_sucursal = a.id_sucursal "
+                        + "GROUP BY s.id_sucursal, s.nombre "
+                        + "ORDER BY total_asistencias DESC;");
+                break;
+        }
+    }//GEN-LAST:event_CbSucursalesActionPerformed
+
+    private void CbMeYPaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbMeYPaActionPerformed
+        // TODO add your handling code here:
+        String opcion = CbMeYPa.getSelectedItem().toString();
+
+        switch (opcion) {
+            case "1. Mas vendidas":
+                cargarTabla(TablaR,
+                        "SELECT m.tipo, COUNT(cm.id_cliente) AS total_vendidas "
+                        + "FROM Membresia m "
+                        + "JOIN Cliente_Membresia cm ON m.id_membresia = cm.id_membresia "
+                        + "GROUP BY m.tipo "
+                        + "ORDER BY total_vendidas DESC;");
+                break;
+
+            case "2. Ingresos Totales":
+                cargarTabla(TablaR,
+                        "SELECT m.tipo, SUM(p.monto) AS ingresos_totales "
+                        + "FROM Membresia m "
+                        + "JOIN Cliente_Membresia cm ON m.id_membresia = cm.id_membresia "
+                        + "JOIN Pago p ON cm.id_cliente = p.id_cliente "
+                        + "WHERE p.concepto = 'Membresia' "
+                        + "GROUP BY m.tipo "
+                        + "ORDER BY ingresos_totales DESC;");
+                break;
+
+            case "3. Pago por Fecha":
+                cargarTabla(TablaR,
+                        "SELECT p.id_pago, c.nombre, c.apellido, p.monto, p.fecha_inicio, p.fecha_fin, p.estado "
+                        + "FROM Pago p "
+                        + "JOIN Cliente c ON c.id_cliente = p.id_cliente "
+                        + "WHERE p.fecha_inicio BETWEEN '2025-01-01' AND '2025-12-31' "
+                        + "ORDER BY p.fecha_inicio;");
+                break;
+
+            case "4. Distribucion de Clientes":
+                cargarTabla(TablaR,
+                        "SELECT s.nombre AS sucursal, m.tipo, "
+                        + "ROUND(100.0 * COUNT(cm.id_cliente) / SUM(COUNT(cm.id_cliente)) OVER (PARTITION BY s.id_sucursal), 2) AS porcentaje "
+                        + "FROM Sucursal s "
+                        + "JOIN Asistencia a ON s.id_sucursal = a.id_sucursal "
+                        + "JOIN Cliente_Membresia cm ON a.id_cliente = cm.id_cliente "
+                        + "JOIN Membresia m ON cm.id_membresia = m.id_membresia "
+                        + "GROUP BY s.id_sucursal, s.nombre, m.tipo "
+                        + "ORDER BY s.nombre, porcentaje DESC;");
+                break;
+        }
+
+    }//GEN-LAST:event_CbMeYPaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,12 +578,13 @@ public class Administrador2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CbClientes;
-    private javax.swing.JComboBox<String> CbEntrenadores;
-    private javax.swing.JComboBox<String> CbMeYPa;
-    private javax.swing.JComboBox<String> CbSucursales;
+    public static javax.swing.JComboBox<String> CbClientes;
+    public static javax.swing.JComboBox<String> CbEntrenadores;
+    public static javax.swing.JComboBox<String> CbMeYPa;
+    public static javax.swing.JComboBox<String> CbRI;
+    public static javax.swing.JComboBox<String> CbSucursales;
+    private javax.swing.JTable TablaR;
     private javax.swing.JRadioButton btnRegresar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -316,7 +596,6 @@ public class Administrador2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
